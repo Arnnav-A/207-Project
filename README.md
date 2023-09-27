@@ -2,10 +2,10 @@
 
 # Problem Domain
 
-# Overview of the application
+# Overview of the Application
 
 # OpenTripMap API
 
-# Example Java code output
+# Example Java Code Output
 
 # Technical Problems
