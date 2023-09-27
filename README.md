@@ -1,10 +1,10 @@
 # Travel Recommendations
 
-# Problem Domain
+## Problem Domain
 
 Out team's project is about travel recommendations/places to visit based on a destination city. 
 
-# Project Overview 
+## Project Overview 
 
 We want to implement a travel-planning system. The application is going to include multiple features. Firstly, users can provide a city. Then, based on the location provided, with the assistance of the OpenTripMap API, the application gives a recommendation of points of interest nearby. Moreover, the user can also use the tags provided by the API to add filters based on their preferences. We are also considering adding features such as: 
 
@@ -13,7 +13,7 @@ We want to implement a travel-planning system. The application is going to inclu
 * Flight/Hotel recommendations; 
 * Private Review/Feedback. 
 
-# OpenTripMap API
+## OpenTripMap API
 
 https://opentripmap.io/docs#/
 
@@ -23,6 +23,6 @@ The OpenTripMap API is an interface to access a database of points of interest. 
 
 ![Screenshot 2](https://media.discordapp.net/attachments/1156382532816867449/1156382639041806416/Output_screenshot.png?ex=65156d81&is=65141c01&hm=d2c61e80355d378f597263d7610ab1cbe6bd894674a0b02a3a3ca98df127dbd0&=&width=1106&height=485)  
 
-# Example Java Code Output
+## Example Java Code Output
 
-# Technical Problems
+## Technical Problems
