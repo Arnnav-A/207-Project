@@ -6,7 +6,7 @@ Out team's project is about travel recommendations/places to visit based on a de
 
 # Project Overview 
 
-We want to implement a travel-planning system. The application is going to include multiple features. Firstly, users can provide a city. Then, based on the location provided, with the assistance of the open trip map API, the application gives a recommendation of points of interest nearby. Moreover, the user can also use the tags provided by the API to add filters based on their preferences. We are also considering adding features such as: 
+We want to implement a travel-planning system. The application is going to include multiple features. Firstly, users can provide a city. Then, based on the location provided, with the assistance of the OpenTripMap API, the application gives a recommendation of points of interest nearby. Moreover, the user can also use the tags provided by the API to add filters based on their preferences. We are also considering adding features such as: 
 
 * Trip scheduling;
 * Weather (using weather API); 
@@ -17,7 +17,7 @@ We want to implement a travel-planning system. The application is going to inclu
 
 https://opentripmap.io/docs#/
 
-The open trip map API is an interface to access a database of points of interest. It also allows users to get the geographical location (latitude and longitude) of a city, which can be used to give recommendations in a certain radius. It also provides tags that allow users to filter the locations provided. 
+The OpenTripMap API is an interface to access a database of points of interest. It also allows users to get the geographical location (latitude and longitude) of a city, which can be used to give recommendations in a certain radius. It also provides tags that allow users to filter the locations provided. 
 
 ![Screenshot 1](https://cdn.discordapp.com/attachments/1156382532816867449/1156382638710476820/Input_screenshot.png?ex=65156d81&is=65141c01&hm=d2b15638a9442254d30ca238c52d58609e05a88939b242997dfe4842f54224d1&)
 
