@@ -19,6 +19,10 @@ https://opentripmap.io/docs#/
 
 The open trip map API is an interface to access a database of points of interest. It also allows users to get the geographical location (latitude and longitude) of a city, which can be used to give recommendations in a certain radius. It also provides tags that allow users to filter the locations provided. 
 
+![Screenshot 1](https://cdn.discordapp.com/attachments/1156382532816867449/1156382638710476820/Input_screenshot.png?ex=65156d81&is=65141c01&hm=d2b15638a9442254d30ca238c52d58609e05a88939b242997dfe4842f54224d1&)
+
+![Screenshot 2](https://media.discordapp.net/attachments/1156382532816867449/1156382639041806416/Output_screenshot.png?ex=65156d81&is=65141c01&hm=d2c61e80355d378f597263d7610ab1cbe6bd894674a0b02a3a3ca98df127dbd0&=&width=1106&height=485)  
+
 # Example Java Code Output
 
 # Technical Problems
