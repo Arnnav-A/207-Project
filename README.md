@@ -9,7 +9,7 @@ Out team's project is about travel recommendations/places to visit based on a de
 We want to implement a travel-planning system. The application is going to include multiple features. Firstly, users can provide a city. Then, based on the location provided, with the assistance of the open trip map API, the application gives a recommendation of points of interest nearby. Moreover, the user can also use the tags provided by the API to add filters based on their preferences. We are also considering adding features such as: 
 
 * Trip scheduling;
-* Weather recommendations (using weather API); 
+* Weather (using weather API); 
 * Flight/Hotel recommendations; 
 * Private Review/Feedback. 
 
