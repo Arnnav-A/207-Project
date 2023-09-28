@@ -40,4 +40,4 @@ This is the result of the first method 'geoname' in the OpenTripMap API, when us
 
 ## Technical Problems
 
-* We are facing issues in managing maven builds to add the module dependencies for this project.
+* We are currently facing issues in managing maven builds to add the module dependencies for this project.
