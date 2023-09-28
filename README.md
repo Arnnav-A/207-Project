@@ -25,4 +25,19 @@ The OpenTripMap API is an interface to access a database of points of interest. 
 
 ## Example Java Code Output
 
+```json
+{
+  "country":"CA",
+  "timezone":"America/Toronto",
+  "name":"toronto",
+  "lon":-79.4163,
+  "lat":43.70011,
+  "population":2600000,
+  "status":"OK"
+}
+```
+This is the result of the first method 'geoname' in the OpenTripMap API, when used with keyword: "toronto".
+
 ## Technical Problems
+
+* We are facing issues in managing maven builds to add the module dependencies for this project.
