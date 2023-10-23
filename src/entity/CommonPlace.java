@@ -18,27 +18,25 @@ public class CommonPlace implements Place{
         this.rating = rating;
     }
     @Override
-    public String getName() {
-        return null;
-    }
+    public String getName() {return description;}
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public List<Double> getCoordinates() {
-        return null;
+        return coordinates;
     }
 
     @Override
     public String getTags() {
-        return null;
+        return tags;
     }
 
     @Override
     public Float getRating() {
-        return null;
+        return rating;
     }
 }
