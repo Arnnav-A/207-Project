@@ -2,7 +2,7 @@
 
 ## Problem Domain
 
-Our team's project is about travel recommendations/places to visit based on a destination city. 
+Our team's project is about filtering out and saving places of interest to visit based on a destination city. 
 
 ## Project Overview 
 
