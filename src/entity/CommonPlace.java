@@ -18,7 +18,7 @@ public class CommonPlace implements Place{
         this.rating = rating;
     }
     @Override
-    public String getName() {return description;}
+    public String getName() {return name;}
 
     @Override
     public String getDescription() {
