@@ -2,7 +2,7 @@
 
 ## Problem Domain
 
-Our team's project is about travel recommendations/places to visit based on a destination city. 
+Our team's project is about filtering out and saving places of interest to visit based on a destination city. 
 
 ## Project Overview 
 
@@ -11,7 +11,7 @@ We want to implement a travel-planning system. The application is going to inclu
 * Trip scheduling;
 * Weather (using weather API); 
 * Flight/Hotel recommendations; 
-* Private Review/Feedback. 
+* Private Review/Feedback.   
 
 ## OpenTripMap API
 
@@ -37,6 +37,7 @@ The OpenTripMap API is an interface to access a database of points of interest. 
 }
 ```
 This is the result of the first method 'geoname' in the OpenTripMap API, when used with keyword: "toronto".
+The result would show Toronto's longitude and latitude.
 
 ## Technical Problems
 
