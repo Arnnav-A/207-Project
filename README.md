@@ -11,7 +11,7 @@ We want to implement a travel-planning system. The application is going to inclu
 * Trip scheduling;
 * Weather (using weather API); 
 * Flight/Hotel recommendations; 
-* Private Review/Feedback. 
+* Private Review/Feedback.   
 
 ## OpenTripMap API
 
