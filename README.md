@@ -1,4 +1,4 @@
-# Travel Recommendations
+# Travel Recommendations (Place Finder)
 
 ## Problem Domain
 
@@ -6,12 +6,11 @@ Our team's project is about filtering out and saving places of interest to visit
 
 ## Project Overview 
 
-We want to implement a travel-planning system. The application is going to include multiple features. Firstly, users can provide a city. Then, based on the location provided, with the assistance of the OpenTripMap API, the application gives a recommendation of points of interest nearby. Moreover, the user can also use the tags provided by the API to add filters based on their preferences. We are also considering adding features such as: 
+The program is going to include multiple features. 
+Firstly, users can provide a city. Then, based on the location provided, with the assistance of the 
+OpenTripMap API, the application gives a list of recommendation of points of interest nearby. By using the 
+filter, user can specify what type of places they are focusing on, and then get targeted places. 
 
-* Trip scheduling;
-* Weather (using weather API); 
-* Flight/Hotel recommendations; 
-* Private Review/Feedback.   
 
 ## OpenTripMap API
 
