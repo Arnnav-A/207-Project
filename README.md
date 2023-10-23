@@ -37,6 +37,7 @@ The OpenTripMap API is an interface to access a database of points of interest. 
 }
 ```
 This is the result of the first method 'geoname' in the OpenTripMap API, when used with keyword: "toronto".
+The result would show Toronto's longitude and latitude.
 
 ## Technical Problems
 
