@@ -8,7 +8,7 @@ public interface Place {
 
     String getDescription();
 
-    List<Double> getCoordinate();
+    List<Double> getCoordinates();
 
     String getTags();
 
