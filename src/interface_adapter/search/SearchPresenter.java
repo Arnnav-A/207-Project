@@ -1,4 +1,6 @@
 package interface_adapter.search;
 
-public class SearchPresenter {
+import use_case.search.SearchInputBoundary;
+
+public class SearchPresenter implements SearchInputBoundary {
 }
