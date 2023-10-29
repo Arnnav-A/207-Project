@@ -5,17 +5,17 @@ import java.util.List;
 public class CommonPlace implements Place{
 
     private final String name;
-    private final String description;
+    private final String address;
     private final List<Double> coordinates;
     private final String tags;
-    private final Float rating;
+    private final String city;
 
-    CommonPlace(String name, String description, List<Double> coordinates, String tags, Float rating) {
+    CommonPlace(String name, String address, List<Double> coordinates, String tags, String city) {
         this.name = name;
-        this.description = description;
+        this.address = address;
         this.coordinates = coordinates;
         this.tags = tags;
-        this.rating = rating;
+        this.city = city;
     }
     @Override
     public String getName() {
@@ -23,8 +23,8 @@ public class CommonPlace implements Place{
     }
 
     @Override
-    public String getDescription() {
-        return description;
+    public String getAddress() {
+        return address;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CommonPlace implements Place{
     }
 
     @Override
-    public Float getRating() {
-        return rating;
+    public String getCity() {
+        return city;
     }
 }

@@ -6,11 +6,11 @@ public interface Place {
 
     String getName();
 
-    String getDescription();
+    String getAddress();
 
     List<Double> getCoordinates();
 
     String getTags();
 
-    Float getRating();
+    String getCity();
 }

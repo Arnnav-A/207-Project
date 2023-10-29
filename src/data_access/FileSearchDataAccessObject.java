@@ -44,7 +44,16 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             JSONArray listingJSON = listingJSONObject.getJSONArray("features");
             for (Object place: listingJSON) {
                 JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
-                listing.add(placeFactory.create(placeProperties.getString("name"), "", new ArrayList<>(), placeProperties.getJSONArray("categories").toString(), 0f));
+                String name = placeProperties.getString("name");
+                String address = placeProperties.getString("formatted");
+                Double latitude = placeProperties.getDouble("lat");
+                Double longitude = placeProperties.getDouble("lon");
+                ArrayList<Double> coordinates = new ArrayList<>();
+                coordinates.add(latitude);
+                coordinates.add(longitude);
+                String tags = placeProperties.getJSONArray("categories").toString();
+                String placeCity = placeProperties.getString("city");
+                listing.add(placeFactory.create(name, address, coordinates, tags, placeCity));
             }
             System.out.println(listingJSONObject);
             return listing;
