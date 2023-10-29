@@ -104,7 +104,6 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             fileWriter.write(responseBody.toString());
             fileWriter.flush();
             fileWriter.close();
-            JSONArray locations = (JSONArray) responseBody.get("features");
             return true;
         } catch (IOException e) {
             return false;
