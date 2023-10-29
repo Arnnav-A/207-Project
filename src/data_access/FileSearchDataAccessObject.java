@@ -1,8 +1,10 @@
 package data_access;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Scanner;
 import entity.Place;
+import entity.PlaceFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,10 +18,13 @@ import java.util.concurrent.TimeUnit;
 public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     private final File filtersFileCSV;
     private final File listingFileJSON;
+    private final PlaceFactory placeFactory;
 
-    public FileSearchDataAccessObject(String filtersPathCSV, String listingPathJSON) {
+
+    public FileSearchDataAccessObject(PlaceFactory commonPlaceFactory, String filtersPathCSV, String listingPathJSON) {
         this.filtersFileCSV = new File(filtersPathCSV);
         this.listingFileJSON = new File(listingPathJSON);
+        this.placeFactory = commonPlaceFactory;
     }
 
     @Override
@@ -30,6 +35,25 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
 
     @Override
     public ArrayList<Place> getListing(String city, String filter) {
+        ArrayList<Place> listing = new ArrayList<>();
+        if (!saveListing(city, filter)) {
+            return listing;
+        }
+        try {
+            JSONObject listingJSONObject = new JSONObject(new String(Files.readAllBytes(listingFileJSON.toPath())));
+            JSONArray listingJSON = listingJSONObject.getJSONArray("features");
+            for (Object place: listingJSON) {
+                JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
+                listing.add(placeFactory.create(placeProperties.getString("name"), "", new ArrayList<>(), placeProperties.getJSONArray("categories").toString(), 0f));
+            }
+            System.out.println(listingJSONObject);
+            return listing;
+        } catch (IOException e) {
+            return listing;
+        }
+    }
+
+    private boolean saveListing(String city, String filter) {
         String searchLimit = "20";
         String API_TOKEN = System.getenv("API_TOKEN");
         String categories = getSimilarFilters(filter).toString().replace("[","").replace("]","");
@@ -54,7 +78,7 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             JSONObject cityDetails = (JSONObject) allCityDetails.get(0);
             cityGeocode = (String) cityDetails.get("place_id");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return false;
         }
         /**
          * Using Places API from Geoapify.com to get the points of interest in the city being searched.
@@ -72,10 +96,10 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             fileWriter.flush();
             fileWriter.close();
             JSONArray locations = (JSONArray) responseBody.get("features");
+            return true;
         } catch (IOException e) {
-            return new ArrayList<>();
+            return false;
         }
-        return null;
     }
 
     private ArrayList<String> getSimilarFilters(String filter) {
