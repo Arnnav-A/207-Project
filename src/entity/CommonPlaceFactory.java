@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CommonPlaceFactory implements PlaceFactory {
     @Override
-    public Place create(String name, String description, List<Double> coordinates, String tags, Float rating) {
-        return new CommonPlace(name, description, coordinates, tags, rating);
+    public Place create(String name, String address, List<Double> coordinates, String tags, String city) {
+        return new CommonPlace(name, address, coordinates, tags, city);
     }
 }
