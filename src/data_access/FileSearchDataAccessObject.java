@@ -110,7 +110,7 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
-    public ArrayList<String> getSimilarFilters(String filter) {
+    private ArrayList<String> getSimilarFilters(String filter) {
         ArrayList<String> similarFilters = new ArrayList<>();
         ArrayList<String> similarFilters2 = new ArrayList<>();
         try {
