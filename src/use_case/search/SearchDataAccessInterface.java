@@ -8,4 +8,6 @@ public interface SearchDataAccessInterface {
     boolean isValidFilter(String filter);
 
     ArrayList<Place> getListing(String city, String filter);
+
+    ArrayList<String> getAllFilters();
 }
