@@ -72,9 +72,9 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         builder.readTimeout(30, TimeUnit.SECONDS);
         builder.writeTimeout(30, TimeUnit.SECONDS);
         OkHttpClient client = builder.build();
-        /**
-         * Using Geocoding API from Geoapify.com to get the placeID for the city being searched.
-         */
+
+        // Using Geocoding API from Geoapify.com to get the placeID for the city being searched.
+
         Request requestCityGeocode = new Request.Builder()
                 .url(String.format("https://api.geoapify.com/v1/geocode/search?text=%s&type=city&format=json&apiKey=%s", city.replace(" ", "%20"), API_TOKEN))
                 .build();
@@ -89,9 +89,9 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         } catch (IOException e) {
             return false;
         }
-        /**
-         * Using Places API from Geoapify.com to get the points of interest in the city being searched.
-         */
+
+        // Using Places API from Geoapify.com to get the points of interest in the city being searched.
+
         Request requestPlaces = new Request.Builder()
                 .url(String.format("https://api.geoapify.com/v2/places?categories=%s&filter=place:%s&limit=%s&apiKey=%s", categories, cityGeocode, searchLimit, API_TOKEN))
                 .build();
@@ -104,7 +104,6 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             fileWriter.write(responseBody.toString());
             fileWriter.flush();
             fileWriter.close();
-            JSONArray locations = (JSONArray) responseBody.get("features");
             return true;
         } catch (IOException e) {
             return false;
@@ -113,18 +112,30 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
 
     private ArrayList<String> getSimilarFilters(String filter) {
         ArrayList<String> similarFilters = new ArrayList<>();
+        ArrayList<String> similarFilters2 = new ArrayList<>();
         try {
             Scanner reader = new Scanner(filtersFileCSV);
+            String filter1 = filter.replace(" ", ".").toLowerCase(); // replacing " " with "." to search for filters
+            String filter2 = filter.replace(" ", "_").toLowerCase(); // replacing " " with "_" to search for filters
+            String filter3 = filter.split(" ")[0].toLowerCase(); // if the above doesn't find a filter, then look for filters with just the first word of search
             while (reader.hasNextLine() && similarFilters.isEmpty()) {
                 String data = reader.nextLine();
-                if (data.contains(filter.toLowerCase())) {
+                if (data.contains(filter1)) {
                     similarFilters.add(data);
                 }
+                if (data.contains(filter2)) {
+                    similarFilters.add(data);
+                }
+                if (data.contains(filter3)) {
+                    similarFilters2.add(data);
+                }
+            }
+            if (similarFilters.isEmpty()) {
+                return similarFilters2;
             }
             return similarFilters;
         } catch (FileNotFoundException e) {
             return new ArrayList<>();
         }
     }
-
 }
