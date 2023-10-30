@@ -138,4 +138,17 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             return new ArrayList<>();
         }
     }
+
+    public ArrayList<String> getAllFilters() {
+        ArrayList<String> filters = new ArrayList<>();
+        try {
+            Scanner reader = new Scanner(filtersFileCSV);
+            while (reader.hasNextLine()) {
+                filters.add(reader.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>();
+        }
+        return filters;
+    }
 }
