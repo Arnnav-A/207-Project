@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 public class SearchViewModel extends ViewModel {
     public static final String SEARCH_BUTTON_LABEL = "Search";
     public static final String TITLE_LABEL = "Search View";
-    public static final String CITYNAME_LABEL = "choose city name";
+    public static final String CITY_NAME_LABEL = "choose city name";
     public static final String FILTER_LABEL = "choose filter";
     private SearchState state = new SearchState();
     public SearchViewModel() {
