@@ -11,7 +11,7 @@ public class SearchViewModel extends ViewModel {
     public static final String CITYNAME_LABEL = "choose city name";
     public static final String FILTER_LABEL = "choose filter";
     private SearchState state = new SearchState();
-    public SearchViewModel(String viewName) {
+    public SearchViewModel() {
         super("search");
     }
     public void setState(SearchState state) {this.state = state;}
