@@ -36,7 +36,7 @@ public class SearchInteractor implements SearchInputBoundary {
                 SearchOutputData searchOutputData = new SearchOutputData(listing, false);
                 // searchPresenter.prepareSuccessView(searchOutputData);
                 for (Place place : listing.getPoints()) {
-                    System.out.println(place.getName() + "/n"); // for the sake of testing
+                    System.out.println(place.getName()); // for the sake of testing
                 }
             }
         }
