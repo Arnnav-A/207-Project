@@ -16,7 +16,7 @@ public class Main {
         SearchDataAccessInterface fileSearchDataAccessObject = new FileSearchDataAccessObject(placeFactory, "src/data_access/filters.csv", "listingJSON.json");
         SearchInputBoundary searchInteractor = new SearchInteractor(fileSearchDataAccessObject, listingFactory);
         SearchController searchController = new SearchController(searchInteractor);
-        searchController.execute("Toronto", "restaurant");
+        searchController.execute("Toronto", "restaurant"); //change the city name and the filter to test it!
     }
 
 }
