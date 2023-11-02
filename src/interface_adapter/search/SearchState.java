@@ -2,9 +2,14 @@ package interface_adapter.search;
 
 public class SearchState {
     private String city_name = "";
-    private String cityNameError = null;
+    private String error = null;
     private String filter = "";
-    private String filterError = null;
+
+    public SearchState(SearchState copy) {
+        city_name = copy.city_name;
+        error = copy.error;
+        filter = copy.filter;
+    }
 
     public SearchState() {}
     // getter and setter of the four variables.
@@ -16,12 +21,12 @@ public class SearchState {
         this.city_name = city_name;
     }
 
-    public String getCityNameError() {
-        return cityNameError;
+    public String getError() {
+        return error;
     }
 
-    public void setCityNameError(String cityNameError) {
-        this.cityNameError = cityNameError;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getFilter() {
@@ -32,11 +37,4 @@ public class SearchState {
         this.filter = filter;
     }
 
-    public String getFilterError() {
-        return filterError;
-    }
-
-    public void setFilterError(String filterError) {
-        this.filterError = filterError;
-    }
 }

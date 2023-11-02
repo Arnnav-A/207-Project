@@ -3,6 +3,7 @@ package view;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
+import use_case.search.SearchInputData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,41 +15,51 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
-    public String viewName = "search";
+    public final String viewName = "search";
     private final SearchViewModel searchViewModel;
     // create InputField for typing the city name and filter.
-    private final JTextField cityNameInputField = new JTextField(15);
-    private final JTextField filterInputField = new JTextField(15);
+    final JTextField cityNameInputField = new JTextField(15);
+    final JTextField filterInputField = new JTextField(15);
+    private final JLabel errorField = new JLabel();
     // create searchController in order to pass input data.
     private final SearchController searchController;
     // create button for search.
-    private final JButton search;
+    final JButton search;
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
-        searchViewModel.addPropertyChangeListener(this);
+        this.searchViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel(SearchViewModel.TITLE_LABEL);
+        JLabel title = new JLabel("Search Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         // create labels for the city name and filter.
+
         LabelTextPanel cityNameInfo = new LabelTextPanel(
-                new JLabel(SearchViewModel.CITY_NAME_LABEL), cityNameInputField);
+                new JLabel("City"), cityNameInputField);
         LabelTextPanel filterInfo = new LabelTextPanel(
-                new JLabel(SearchViewModel.FILTER_LABEL), filterInputField);
+                new JLabel("Filter"), filterInputField);
         // create panel for the search button.
         JPanel buttons = new JPanel();
-        search = new JButton(SearchViewModel.SEARCH_BUTTON_LABEL);
+        search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
+
         // add Action Listener to check if the event is search.
         search.addActionListener(
-                e -> {
-                    if (e.getSource().equals(search)) {
-                        SearchState curr = searchViewModel.getState();
-                        // searchController.execute();
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(search)) {
+                            SearchState currentState = searchViewModel.getState();
+
+                            searchController.execute(
+                                    currentState.getCityName(),
+                                    currentState.getFilter()
+                            );
+                        }
                     }
                 }
         );
+
         // add Key Listener to get what was entered in the input field.
         cityNameInputField.addKeyListener(
                 new KeyListener() {
@@ -68,16 +79,44 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        filterInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SearchState curr = searchViewModel.getState();
+                        curr.setFilter(filterInputField.getText() + e.getKeyChar());
+                        searchViewModel.setState(curr);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+        this.add(title);
+        this.add(cityNameInfo);
+        this.add(filterInfo);
+        this.add(errorField);
+        this.add(buttons);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent evt) {System.out.println("Click " + evt.getActionCommand());}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SearchState state = (SearchState) evt.getNewValue();
-        if (state.getCityNameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getCityNameError());
+        setFields(state);
         }
+
+    private void setFields(SearchState state) {
+        cityNameInputField.setText(state.getCityName());
+        filterInputField.setText(state.getFilter());
     }
 }
+

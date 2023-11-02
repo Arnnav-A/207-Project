@@ -20,31 +20,24 @@ public class SearchPresenter implements SearchOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-    @Override
-    public void prepareSuccessView(SearchOutputData listing) {
 
+
+    @Override
+    public void prepareSuccessView(SearchOutputData response) {
+        ListingResultsState listingResultsState = this.listingResultsViewModel.getState();
+        listingResultsState.setListing(response.getListing());
+        this.listingResultsViewModel.setState(listingResultsState);
+        this.listingResultsViewModel.firePropertyChanged();
+
+        this.viewManagerModel.setActiveView(listingResultsViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
+
 
     @Override
     public void prepareFailView(String error) {
-
+        SearchState searchState = searchViewModel.getState();
+        searchState.setError(error);
+        searchViewModel.firePropertyChanged();
     }
-
-    //@Override
-    //public void prepareSuccessView(SearchOutputData listing) {
-    //    ListingResultsState listingResultsState = listingResultsViewModel.getState();
-    //    listingResultsState.setListing(listing.getListing());
-    //    this.listingResultsViewModel.setState(listingResultsState);
-    //    listingResultsViewModel.firePropertyChanged();
-
-    //    viewManagerModel.setActiveView(listingResultsViewModel.getViewName());
-    //    viewManagerModel.firePropertyChanged();
-    //}
-
-    //@Override
-    //public void prepareFailView(String error) {
-    //    SearchState searchState = searchViewModel.getState();
-    //    searchState.setError(error);
-    //    searchViewModel.firePropertyChange();
-    //}
 }
