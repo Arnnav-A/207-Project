@@ -20,6 +20,9 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
     JList<String> places;
     DefaultListModel<String> model;
 
+    JLabel city;
+    JLabel filter;
+
 
     public ListingView(ListingResultsViewModel listingResultsViewModel) {
         this.listingResultsViewModel = listingResultsViewModel;
