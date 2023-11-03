@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.search.SearchDataAccessInterface;
 
@@ -43,17 +44,20 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             JSONObject listingJSONObject = new JSONObject(new String(Files.readAllBytes(listingFileJSON.toPath())));
             JSONArray listingJSON = listingJSONObject.getJSONArray("features");
             for (Object place: listingJSON) {
-                JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
-                String name = placeProperties.getString("name");
-                String address = placeProperties.getString("formatted");
-                Double latitude = placeProperties.getDouble("lat");
-                Double longitude = placeProperties.getDouble("lon");
-                ArrayList<Double> coordinates = new ArrayList<>();
-                coordinates.add(latitude);
-                coordinates.add(longitude);
-                String tags = placeProperties.getJSONArray("categories").toString();
-                String placeCity = placeProperties.getString("city");
-                listing.add(placeFactory.create(name, address, coordinates, tags, placeCity));
+                try {
+                    JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
+                    String name = placeProperties.getString("name");
+                    String address = placeProperties.getString("formatted");
+                    Double latitude = placeProperties.getDouble("lat");
+                    Double longitude = placeProperties.getDouble("lon");
+                    ArrayList<Double> coordinates = new ArrayList<>();
+                    coordinates.add(latitude);
+                    coordinates.add(longitude);
+                    String tags = placeProperties.getJSONArray("categories").toString();
+                    String placeCity = placeProperties.getString("city");
+                    listing.add(placeFactory.create(name, address, coordinates, tags, placeCity));
+                } catch (JSONException ignored) {
+                }
             }
             System.out.println(listingJSONObject);
             return listing;
