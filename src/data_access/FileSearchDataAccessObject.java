@@ -143,6 +143,7 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
+    @Override
     public ArrayList<String> getAllFilters() {
         ArrayList<String> filters = new ArrayList<>();
         try {
