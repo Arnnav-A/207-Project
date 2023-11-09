@@ -1,13 +1,15 @@
 package use_case.getFilter;
 
+import use_case.search.SearchDataAccessInterface;
+
 import java.util.ArrayList;
 
 public class GetFilterInteractor implements GetFilterInputBoundary{
-    final GetFilterDataAccessInterface userDataAccessObject;
+    final SearchDataAccessInterface userDataAccessObject;
 
     final GetFilterOutputBpundary userPresenter;
 
-    public GetFilterInteractor(GetFilterDataAccessInterface userDataAccessObject,
+    public GetFilterInteractor(SearchDataAccessInterface userDataAccessObject,
                                GetFilterOutputBpundary userPresenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.userPresenter = userPresenter;
