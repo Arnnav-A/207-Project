@@ -63,7 +63,7 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     }
 
     private boolean saveListing(String city, String filter) {
-        String searchLimit = "20";
+        String searchLimit = "40";
         String API_TOKEN = System.getenv("API_TOKEN");
         String categories = getSimilarFilters(filter).toString().replace("[","").replace("]","");
         String cityGeocode; // Initializing the placeID for city being searched
