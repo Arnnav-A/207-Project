@@ -24,12 +24,15 @@ public class SearchInteractor implements SearchInputBoundary {
         if (!searchDataAccessObject.isValidFilter(searchInputData.getFilter())) {
             searchPresenter.prepareFailView("Filter not found.");
             System.out.println("Filter not found."); // for the sake of testing
+        } else if (!searchDataAccessObject.isValidCity(searchInputData.getCity())) {
+            searchPresenter.prepareFailView("City not found.");
+            System.out.println("City not found."); // for the sake of testing
         } else {
             ArrayList<Place> points = searchDataAccessObject.getListing(searchInputData.getCity(),
                     searchInputData.getFilter());
             if (points.isEmpty()) {
-                searchPresenter.prepareFailView("City or places not found.");
-                System.out.println("City or places not found."); // for the sake of testing
+                searchPresenter.prepareFailView("Places not found.");
+                System.out.println("Places not found."); // for the sake of testing
             } else {
                 Listing listing = listingFactory.create(points,
                         searchInputData.getCity(), searchInputData.getFilter());
