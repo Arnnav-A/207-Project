@@ -47,6 +47,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
         errorField.setAlignmentX(Component.CENTER_ALIGNMENT);
         errorField.setAlignmentY(Component.CENTER_ALIGNMENT);
+        errorField.setForeground(Color.RED);
 
         // add Action Listener to check if the event is search.
         search.addActionListener(
