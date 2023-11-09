@@ -2,7 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 
-public class CommonListing implements Listing{
+public class CommonListing implements Listing {
 
     private final ArrayList<Place> points;
     private final String city;
@@ -27,5 +27,14 @@ public class CommonListing implements Listing{
     @Override
     public String getFilter() {
         return filter;
+    }
+
+    public Place getPlaceFromName(String name) {
+        for (Place point : points) {
+            if (point.getName().equals(name)) {
+                return point;
+            }
+        }
+        return null;
     }
 }

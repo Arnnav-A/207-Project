@@ -33,7 +33,7 @@ public class SearchInteractor implements SearchInputBoundary {
             } else {
                 Listing listing = listingFactory.create(points,
                         searchInputData.getCity(), searchInputData.getFilter());
-                SearchOutputData searchOutputData = new SearchOutputData(listing, false);
+                SearchOutputData searchOutputData = new SearchOutputData(listing, searchInputData.getCity(), searchInputData.getFilter(), false);
                 searchPresenter.prepareSuccessView(searchOutputData);
                 for (Place place : listing.getPoints()) {
                     System.out.println(place.getName() + " - " + place.getAddress()); // for the sake of testing
