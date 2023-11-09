@@ -26,6 +26,8 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareSuccessView(SearchOutputData response) {
         ListingResultsState listingResultsState = this.listingResultsViewModel.getState();
         listingResultsState.setListing(response.getListing());
+        listingResultsState.setCity(response.getCity());
+        listingResultsState.setFilter(response.getFilter());
         this.listingResultsViewModel.setState(listingResultsState);
         this.listingResultsViewModel.firePropertyChanged();
 

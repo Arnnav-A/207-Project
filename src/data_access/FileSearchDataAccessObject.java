@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.search.SearchDataAccessInterface;
 
@@ -20,19 +21,46 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     private final File listingFileJSON;
     private final PlaceFactory placeFactory;
 
-
+    /**
+     * The class to handle interactions with both the local database and the API
+     * @param commonPlaceFactory the factory for creating place entities
+     * @param filtersPathCSV the file path for the filter
+     * @param listingPathJSON the temporary file path where local data is stored
+     */
     public FileSearchDataAccessObject(PlaceFactory commonPlaceFactory, String filtersPathCSV, String listingPathJSON) {
         this.filtersFileCSV = new File(filtersPathCSV);
         this.listingFileJSON = new File(listingPathJSON);
         this.placeFactory = commonPlaceFactory;
     }
 
+    /**
+     * Checks whether the provided filter is valid. It checks for underscores and periods, otherwise just the first word
+     * @param filter the filter being searched for
+     * @return true iff the filter is present in the filter.csv file
+     */
     @Override
     public boolean isValidFilter(String filter) {
         ArrayList<String> validFilters = getSimilarFilters(filter);
         return !validFilters.isEmpty();
     }
 
+    /**
+     * Checks whether the provided city can be found using the API
+     * @param city the city being searched for
+     * @return true iff the city is found by the API
+     */
+    @Override
+    public boolean isValidCity(String city) {
+        return getPlaceID(city) != null;
+    }
+
+    /**
+     * Looks for places with the given filter as a tag in the provided city
+     * Assumes that isValidCity and isValidFilter return true for these inputs
+     * @param city the city being searched in
+     * @param filter the filter being searched for
+     * @return An ArrayList of Places found by the API
+     */
     @Override
     public ArrayList<Place> getListing(String city, String filter) {
         ArrayList<Place> listing = new ArrayList<>();
@@ -41,19 +69,27 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
         try {
             JSONObject listingJSONObject = new JSONObject(new String(Files.readAllBytes(listingFileJSON.toPath())));
-            JSONArray listingJSON = listingJSONObject.getJSONArray("features");
+            JSONArray listingJSON;
+             try {
+                listingJSON = listingJSONObject.getJSONArray("features");
+            } catch (JSONException e) {
+                 return listing;
+            }
             for (Object place: listingJSON) {
-                JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
-                String name = placeProperties.getString("name");
-                String address = placeProperties.getString("formatted");
-                Double latitude = placeProperties.getDouble("lat");
-                Double longitude = placeProperties.getDouble("lon");
-                ArrayList<Double> coordinates = new ArrayList<>();
-                coordinates.add(latitude);
-                coordinates.add(longitude);
-                String tags = placeProperties.getJSONArray("categories").toString();
-                String placeCity = placeProperties.getString("city");
-                listing.add(placeFactory.create(name, address, coordinates, tags, placeCity));
+                try {
+                    JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
+                    String name = placeProperties.getString("name");
+                    String address = placeProperties.getString("formatted");
+                    Double latitude = placeProperties.getDouble("lat");
+                    Double longitude = placeProperties.getDouble("lon");
+                    ArrayList<Double> coordinates = new ArrayList<>();
+                    coordinates.add(latitude);
+                    coordinates.add(longitude);
+                    String tags = placeProperties.getJSONArray("categories").toString();
+                    String placeCity = placeProperties.getString("city");
+                    listing.add(placeFactory.create(name, address, coordinates, tags, placeCity));
+                } catch (JSONException ignored) {
+                }
             }
             System.out.println(listingJSONObject);
             return listing;
@@ -62,10 +98,11 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
-    private boolean saveListing(String city, String filter) {
-        String searchLimit = "40";
+    /**
+     * Helper to get placeID for the city
+     */
+    private String getPlaceID(String city) {
         String API_TOKEN = System.getenv("API_TOKEN");
-        String categories = getSimilarFilters(filter).toString().replace("[","").replace("]","");
         String cityGeocode; // Initializing the placeID for city being searched
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.connectTimeout(30, TimeUnit.SECONDS);
@@ -86,9 +123,25 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             JSONArray allCityDetails = (JSONArray) responseCityGeocodeBody.get("results");
             JSONObject cityDetails = (JSONObject) allCityDetails.get(0);
             cityGeocode = (String) cityDetails.get("place_id");
-        } catch (IOException e) {
-            return false;
+            return cityGeocode;
+        } catch (IOException | JSONException e) {
+            return null;
         }
+    }
+
+    /**
+     * Helper to save the listing to the local database
+     */
+    private boolean saveListing(String city, String filter) {
+        String searchLimit = "40";
+        String API_TOKEN = System.getenv("API_TOKEN");
+        String categories = getSimilarFilters(filter).toString().replace("[","").replace("]","");
+        String cityGeocode = getPlaceID(city); // Initializing the placeID for city being searched
+        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+        builder.connectTimeout(30, TimeUnit.SECONDS);
+        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.writeTimeout(30, TimeUnit.SECONDS);
+        OkHttpClient client = builder.build();
 
         // Using Places API from Geoapify.com to get the points of interest in the city being searched.
 
@@ -110,6 +163,9 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
+    /**
+     * Helper to look for the exact filter based on the user's input filter
+     */
     private ArrayList<String> getSimilarFilters(String filter) {
         ArrayList<String> similarFilters = new ArrayList<>();
         ArrayList<String> similarFilters2 = new ArrayList<>();
@@ -139,6 +195,11 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
+    /**
+     * Gets the all filters present in the filters csv file
+     * @return An ArrayList of String where each string is a valid filter
+     */
+    @Override
     public ArrayList<String> getAllFilters() {
         ArrayList<String> filters = new ArrayList<>();
         try {

@@ -38,8 +38,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         this.getFilterController = getFilterController;
         this.searchViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Search Screen");
+        JLabel title = new JLabel("PlaceFinder");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setAlignmentY(Component.CENTER_ALIGNMENT);
         // create labels for the city name and filter.
 
         LabelTextPanel cityNameInfo = new LabelTextPanel(
@@ -52,6 +53,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         getFilter = new JButton(searchViewModel.GET_FILTER_LABEL);
         buttons.add(search);
         buttons.add(getFilter);
+
+        errorField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        errorField.setAlignmentY(Component.CENTER_ALIGNMENT);
+        errorField.setForeground(Color.RED);
 
         // add Action Listener to check if the event is search.
         search.addActionListener(
@@ -143,6 +148,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private void setFields (SearchState state){
         cityNameInputField.setText(state.getCityName());
         filterInputField.setText(state.getFilter());
+        errorField.setText(state.getError());
     }
 
 }
