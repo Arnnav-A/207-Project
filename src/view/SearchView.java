@@ -31,15 +31,15 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         this.searchController = searchController;
         this.searchViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("PlaceFinder");
+        JLabel title = new JLabel(searchViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setAlignmentY(Component.CENTER_ALIGNMENT);
         // create labels for the city name and filter.
 
         LabelTextPanel cityNameInfo = new LabelTextPanel(
-                new JLabel("City"), cityNameInputField);
+                new JLabel(searchViewModel.CITY_NAME_LABEL), cityNameInputField);
         LabelTextPanel filterInfo = new LabelTextPanel(
-                new JLabel("Filter"), filterInputField);
+                new JLabel(searchViewModel.FILTER_LABEL), filterInputField);
         // create panel for the search button.
         JPanel buttons = new JPanel();
         search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);

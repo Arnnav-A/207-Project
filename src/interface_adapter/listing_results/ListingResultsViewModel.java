@@ -8,11 +8,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 public class ListingResultsViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Listing Results View.";
+    public final String TITLE_LABEL = "RESULTS";
+    public final String BACK_BUTTON_LABEL = "Back";
     private ListingResultsState state = new ListingResultsState();
     private String city;
     private String filter;
     private ArrayList<Place> points;
+
 
     public ListingResultsViewModel() {
         super("listing");

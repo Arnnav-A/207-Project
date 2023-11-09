@@ -36,7 +36,7 @@ public class Main {
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
         views.add(searchView, searchView.viewName);
 
-        ListingView listingView = new ListingView(listingResultsViewModel);
+        ListingView listingView = new ListingView(listingResultsViewModel, viewManagerModel);
         views.add(listingView, listingView.viewName);
 
         viewManagerModel.setActiveView(searchView.viewName);
