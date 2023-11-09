@@ -35,6 +35,11 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     }
 
     @Override
+    public boolean isValidCity(String city) {
+        return getPlaceID(city) != null;
+    }
+
+    @Override
     public ArrayList<Place> getListing(String city, String filter) {
         ArrayList<Place> listing = new ArrayList<>();
         if (!saveListing(city, filter)) {
@@ -42,7 +47,12 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
         try {
             JSONObject listingJSONObject = new JSONObject(new String(Files.readAllBytes(listingFileJSON.toPath())));
-            JSONArray listingJSON = listingJSONObject.getJSONArray("features");
+            JSONArray listingJSON;
+             try {
+                listingJSON = listingJSONObject.getJSONArray("features");
+            } catch (JSONException e) {
+                 return listing;
+            }
             for (Object place: listingJSON) {
                 try {
                     JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
@@ -66,10 +76,8 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
-    private boolean saveListing(String city, String filter) {
-        String searchLimit = "40";
+    private String getPlaceID(String city) {
         String API_TOKEN = System.getenv("API_TOKEN");
-        String categories = getSimilarFilters(filter).toString().replace("[","").replace("]","");
         String cityGeocode; // Initializing the placeID for city being searched
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.connectTimeout(30, TimeUnit.SECONDS);
@@ -90,9 +98,22 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             JSONArray allCityDetails = (JSONArray) responseCityGeocodeBody.get("results");
             JSONObject cityDetails = (JSONObject) allCityDetails.get(0);
             cityGeocode = (String) cityDetails.get("place_id");
-        } catch (IOException e) {
-            return false;
+            return cityGeocode;
+        } catch (IOException | JSONException e) {
+            return null;
         }
+    }
+
+    private boolean saveListing(String city, String filter) {
+        String searchLimit = "40";
+        String API_TOKEN = System.getenv("API_TOKEN");
+        String categories = getSimilarFilters(filter).toString().replace("[","").replace("]","");
+        String cityGeocode = getPlaceID(city); // Initializing the placeID for city being searched
+        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+        builder.connectTimeout(30, TimeUnit.SECONDS);
+        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.writeTimeout(30, TimeUnit.SECONDS);
+        OkHttpClient client = builder.build();
 
         // Using Places API from Geoapify.com to get the points of interest in the city being searched.
 
@@ -143,6 +164,7 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
     }
 
+    @Override
     public ArrayList<String> getAllFilters() {
         ArrayList<String> filters = new ArrayList<>();
         try {
