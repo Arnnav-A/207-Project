@@ -47,7 +47,12 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
         }
         try {
             JSONObject listingJSONObject = new JSONObject(new String(Files.readAllBytes(listingFileJSON.toPath())));
-            JSONArray listingJSON = listingJSONObject.getJSONArray("features");
+            JSONArray listingJSON;
+             try {
+                listingJSON = listingJSONObject.getJSONArray("features");
+            } catch (JSONException e) {
+                 return listing;
+            }
             for (Object place: listingJSON) {
                 try {
                     JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
