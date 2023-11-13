@@ -3,9 +3,11 @@ package app;
 import data_access.FileSearchDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 
+import view.GetFilterView;
 import view.ListingView;
 import view.SearchView;
 import view.ViewManager;
@@ -29,15 +31,19 @@ public class Main {
 
         SearchViewModel searchViewModel = new SearchViewModel();
         ListingResultsViewModel listingResultsViewModel = new ListingResultsViewModel();
+        GetFilterViewModel getFilterViewModel = new GetFilterViewModel();
 
         FileSearchDataAccessObject searchDataAccessObject;
         searchDataAccessObject = new FileSearchDataAccessObject(new CommonPlaceFactory(), "src/data_access/filters.csv", "listingJSON.json");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel,listingResultsViewModel, searchDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = new ListingView(listingResultsViewModel);
         views.add(listingView, listingView.viewName);
+
+        GetFilterView getFilterView = new GetFilterView(getFilterViewModel);
+        views.add(getFilterView, getFilterView.viewName);
 
         viewManagerModel.setActiveView(searchView.viewName);
         viewManagerModel.firePropertyChanged();

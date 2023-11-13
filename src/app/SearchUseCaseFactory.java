@@ -5,6 +5,7 @@ import entity.ListingFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.getFilter.GetFilterController;
 import interface_adapter.getFilter.GetFilterPresenter;
+import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
@@ -28,12 +29,13 @@ public class SearchUseCaseFactory {
     public static SearchView create(
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
+            GetFilterViewModel getFilterViewModel,
             ListingResultsViewModel listingResultsViewModel,
             SearchDataAccessInterface searchDataAccessObject) {
 
         try {
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
-            GetFilterController getFilterController = createGetFilterController(viewManagerModel, searchViewModel, searchDataAccessObject);
+            GetFilterController getFilterController = createGetFilterController(viewManagerModel, getFilterViewModel,searchDataAccessObject);
             return new SearchView(searchViewModel, searchController, getFilterController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -58,9 +60,9 @@ public class SearchUseCaseFactory {
     }
 
     private static GetFilterController createGetFilterController(ViewManagerModel viewManagerModel,
-                                                                 SearchViewModel searchViewModel,
+                                                                 GetFilterViewModel getFilterViewModel,
                                                                  SearchDataAccessInterface searchDataAccessObject) {
-        GetFilterOutputBpundary getFilterOutputBpundary = new GetFilterPresenter(searchViewModel, viewManagerModel);
+        GetFilterOutputBpundary getFilterOutputBpundary = new GetFilterPresenter(getFilterViewModel, viewManagerModel);
         GetFilterInteractor getFilterUseCaseInteractor = new GetFilterInteractor(searchDataAccessObject, getFilterOutputBpundary);
         return new GetFilterController(getFilterUseCaseInteractor);
     }
