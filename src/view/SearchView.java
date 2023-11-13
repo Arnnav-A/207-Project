@@ -3,7 +3,6 @@ package view;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
-import use_case.search.SearchInputData;
 
 import javax.swing.*;
 import java.awt.*;

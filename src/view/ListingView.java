@@ -1,16 +1,16 @@
 package view;
 
-import entity.CommonListing;
 import entity.Place;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.listing_results.ListingResultsState;
 import interface_adapter.listing_results.ListingResultsViewModel;
-import interface_adapter.search.SearchState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -18,11 +18,13 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
 
     public final String viewName = "listing";
     private final ListingResultsViewModel listingResultsViewModel;
-
     private final ViewManagerModel viewManagerModel;
+
 
     JList<String> places;
     DefaultListModel<String> model;
+
+    JLabel specific;
 
     JLabel search;
 
@@ -46,6 +48,8 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
         places = new JList<>(model);
         JScrollPane scrollPane = new JScrollPane(places);
 
+        specific = new JLabel();
+
         JPanel buttons = new JPanel();
         back = new JButton(listingResultsViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
@@ -59,8 +63,16 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
                         }
                     }
                 }
+        );
 
-
+        places.addMouseListener(
+                new MouseAdapter() {
+                    public void mouseClicked(MouseEvent evt) {
+                        if (evt.getClickCount() == 2) {
+                            String name = places.getSelectedValue();
+                        }
+                    }
+                }
         );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -69,6 +81,7 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
         this.add(search);
         this.add(scrollPane);
         this.add(buttons);
+        this.add(specific);
     }
 
     @Override
