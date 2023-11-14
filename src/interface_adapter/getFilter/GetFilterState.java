@@ -51,9 +51,8 @@ public class GetFilterState {
         this.parentFilter = parentFilter.toArray(new String[0]);
     }
 
-    public void setSubFilter1(ArrayList<String> subFilter) {
-        subFilter.add(0, "Please select a Filter");
-        this.subFilter_1 = subFilter.toArray(new String[0]);
+    public void setSubFilter1(String[] subFilter) {
+        this.subFilter_1 = subFilter;
     }
 
     public void setSubFilter2(ArrayList<String> subFilter) {

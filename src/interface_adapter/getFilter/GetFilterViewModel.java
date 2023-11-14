@@ -52,8 +52,8 @@ public class GetFilterViewModel extends ViewModel {
         this.state = state;
     }
 
-    public void setParentFilter(String parentFilter) {
-        this.parentFilter = parentFilter;
+    public void setParentFilter() {
+        this.parentFilter = state.getSelectedParentFilter();
     }
 
     public void setSelectedFilter(CommonFilter selectedFilter) {
@@ -79,12 +79,13 @@ public class GetFilterViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void firePropertyChanged() {
-        support.firePropertyChange("state",null, this.state);
         if (!parentFilter.equals("Please select a Filter")) {
             String selectedParentFilter = this.parentFilter;
             System.out.println("ViewModel has parentFilter chose: " + selectedParentFilter);
             this.subFilters_1 = allFilters.getSubFilter(selectedParentFilter).getSubFilterNames().toArray(new String[0]);
+            state.setSubFilter1(subFilters_1);
         }
+        support.firePropertyChange("state",null, this.state);
     }
 
 

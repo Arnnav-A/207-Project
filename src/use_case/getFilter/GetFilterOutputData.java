@@ -34,6 +34,10 @@ public class GetFilterOutputData {
         return subFilters_3;
     }
 
+    public CommonFilter getAllFilters() {
+        return allFilters;
+    }
+
     public CommonFilter getSelectedFilter(String name) {
         return allFilters.getSubFilter(name);
     }

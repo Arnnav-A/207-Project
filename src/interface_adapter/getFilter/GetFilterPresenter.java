@@ -26,6 +26,7 @@ public class GetFilterPresenter implements GetFilterOutputBpundary {
     public void prepareView(GetFilterOutputData filter) {
         GetFilterState getFilterState = getFilterViewModel.getState();
         getFilterState.setParentFilter(filter.getParentFilters());
+        getFilterViewModel.setAllFilters(filter.getAllFilters());
         getFilterViewModel.setState(getFilterState);
         //getFilterViewModel.setAllFilters(f);
         getFilterViewModel.firePropertyChanged();

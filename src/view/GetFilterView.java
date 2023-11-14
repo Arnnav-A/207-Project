@@ -67,11 +67,14 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                             if (e.getStateChange() == ItemEvent.SELECTED) {
                                 // Retrieve the selected item
                                 String selectedItem = (String) parentFilter.getSelectedItem();
-                                System.out.println("Choose: " + selectedItem);
-                                GetFilterState currState = getFilterViewModel.getState();
-                                currState.setSelectedParentFilter(selectedItem);
-                                getFilterViewModel.setState(currState);
-                                getFilterViewModel.setParentFilter(selectedItem);
+                                if (!selectedItem.equals("Please select a Filter")) {
+                                    System.out.println("Choose: " + selectedItem);
+                                    GetFilterState currState = getFilterViewModel.getState();
+                                    currState.setSelectedParentFilter(selectedItem);
+                                    getFilterViewModel.setState(currState);
+                                    getFilterViewModel.setParentFilter();
+                                    getFilterViewModel.firePropertyChanged();
+                                }
                             }
                         }
                     }
