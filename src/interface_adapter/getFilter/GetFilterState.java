@@ -55,29 +55,27 @@ public class GetFilterState {
         this.subFilter_1 = subFilter;
     }
 
-    public void setSubFilter2(ArrayList<String> subFilter) {
-        subFilter.add(0, "Please select a Filter");
-        this.subFilter_2 = subFilter.toArray(new String[0]);
+    public void setSubFilter2(String[] subFilter) {
+        this.subFilter_2 = subFilter;
     }
 
-    public void setSubFilter3(ArrayList<String> subFilter) {
-        subFilter.add(0, "Please select a Filter");
-        this.subFilter_3 = subFilter.toArray(new String[0]);
+    public void setSubFilter3(String[] subFilter) {
+        this.subFilter_3 = subFilter;
     }
 
     public void setSelectedParentFilter(String parentFilter) {
         this.selectedParentFilter = parentFilter;
     }
 
-    public void setSelectedSubFilter1SubFilter_1(String subFilter) {
+    public void setSelectedSubFilter1(String subFilter) {
         this.selectedSubFilter1 = subFilter;
     }
 
-    public void setSelectedSubFilter2SubFilter_2(String subFilter) {
+    public void setSelectedSubFilter2(String subFilter) {
         this.selectedSubFilter2 = subFilter;
     }
 
-    public void setSelectedSubFilter3SubFilter_3(String subFilter) {
+    public void setSelectedSubFilter3(String subFilter) {
         this.selectedSubFilter3 = subFilter;
     }
 }

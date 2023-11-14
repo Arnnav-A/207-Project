@@ -19,7 +19,7 @@ public class CommonFilter implements Filter {
 
     @Override
     public CommonFilter getSubFilter(String name) {
-        CommonFilter selectedFilter = null;
+        CommonFilter selectedFilter = new CommonFilter("");
         for (CommonFilter filter : subfilters) {
             if (filter.getName().equals(name)) {
                 selectedFilter = filter;
