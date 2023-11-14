@@ -2,7 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashMap;
+
+
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 
 class ComboBoxExample extends JFrame {
 
@@ -111,3 +123,41 @@ class MultipleFramesExample {
 
 
 
+
+class ComboBoxChangeTrackingExample {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("ComboBox Change Tracking Example");
+        frame.setLayout(new FlowLayout());
+
+        JComboBox<String> comboBox = new JComboBox<>();
+        comboBox.addItem("Item 1");
+        comboBox.addItem("Item 2");
+        comboBox.addItem("Item 3");
+
+        JLabel label = new JLabel("Selected Item: ");
+
+        // Add an ItemListener to track changes using item state events
+        comboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                // Ensure the event source is our JComboBox
+                if (e.getSource() == comboBox) {
+                    // Check if the item state changed to SELECTED
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        // Retrieve the selected item
+                        String selectedItem = (String) comboBox.getSelectedItem();
+                        label.setText("Selected Item: " + selectedItem);
+                    }
+                }
+            }
+        });
+
+        frame.add(comboBox);
+        frame.add(label);
+
+        frame.setSize(300, 150);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}

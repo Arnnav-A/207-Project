@@ -42,13 +42,15 @@ public class Main {
         ListingView listingView = new ListingView(listingResultsViewModel);
         views.add(listingView, listingView.viewName);
 
-        GetFilterView getFilterView = new GetFilterView(getFilterViewModel);
+        GetFilterView getFilterView = new GetFilterView(getFilterViewModel, searchView);
         views.add(getFilterView, getFilterView.viewName);
 
         viewManagerModel.setActiveView(searchView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
+        application.setSize(300, 210);
+        application.setLocationRelativeTo(null);
         application.setVisible(true);
     }
 

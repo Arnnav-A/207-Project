@@ -6,6 +6,7 @@ import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
 import use_case.getFilter.GetFilterOutputBpundary;
 import use_case.getFilter.GetFilterOutputData;
+import view.GetFilterView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,9 +27,11 @@ public class GetFilterPresenter implements GetFilterOutputBpundary {
         GetFilterState getFilterState = getFilterViewModel.getState();
         getFilterState.setParentFilter(filter.getParentFilters());
         getFilterViewModel.setState(getFilterState);
+        //getFilterViewModel.setAllFilters(f);
         getFilterViewModel.firePropertyChanged();
 
         this.viewManagerModel.setActiveView(getFilterViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
+        //new GetFilterView(getFilterViewModel);
     }
 }

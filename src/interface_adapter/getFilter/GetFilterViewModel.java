@@ -1,5 +1,6 @@
 package interface_adapter.getFilter;
 
+import entity.CommonFilter;
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
@@ -9,15 +10,15 @@ import java.util.ArrayList;
 public class GetFilterViewModel extends ViewModel {
 
     public final String APPLY_BUTTON_LABEL = "Apply this Filter";
-    public final String CLOSE_BUTTON_LABEL = "Close this window";
     public final String TITLE_LABEL = "All Filters View";
     private GetFilterState state = new GetFilterState();
-    private String[] parentFilter= {"Please select a Filter"};
+    private String parentFilter= "Please select a Filter";
     private String[] subFilters_1 = {"Please select a Filter"};
     private String[] subFilters_2 = {"Please select a Filter"};
     private String[] subFilters_3 = {"Please select a Filter"};
 
-    private String selectedFilter;
+    private CommonFilter selectedFilter;
+    private CommonFilter allFilters;
 
     public GetFilterViewModel() {
         super("getFilter");
@@ -27,11 +28,11 @@ public class GetFilterViewModel extends ViewModel {
         return state;
     }
 
-    public String[] getParentFilter() {
+    public String getParentFilter() {
         return parentFilter;
     }
 
-    public String getSelectedFilter() {
+    public CommonFilter getSelectedFilterName() {
         return selectedFilter;
     }
 
@@ -51,11 +52,11 @@ public class GetFilterViewModel extends ViewModel {
         this.state = state;
     }
 
-    public void setParentFilter(String[] parentFilter) {
+    public void setParentFilter(String parentFilter) {
         this.parentFilter = parentFilter;
     }
 
-    public void setSelectedFilter(String selectedFilter) {
+    public void setSelectedFilter(CommonFilter selectedFilter) {
         this.selectedFilter = selectedFilter;
     }
 
@@ -71,10 +72,19 @@ public class GetFilterViewModel extends ViewModel {
         this.subFilters_3 = subFilters;
     }
 
+    public void setAllFilters(CommonFilter filters) {
+        this.allFilters = filters;
+    }
+
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void firePropertyChanged() {
         support.firePropertyChange("state",null, this.state);
+        if (!parentFilter.equals("Please select a Filter")) {
+            String selectedParentFilter = this.parentFilter;
+            System.out.println("ViewModel has parentFilter chose: " + selectedParentFilter);
+            this.subFilters_1 = allFilters.getSubFilter(selectedParentFilter).getSubFilterNames().toArray(new String[0]);
+        }
     }
 
 
