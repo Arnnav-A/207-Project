@@ -8,10 +8,10 @@ import java.util.*;
 public class GetFilterInteractor implements GetFilterInputBoundary {
     final SearchDataAccessInterface userDataAccessObject;
 
-    final GetFilterOutputBpundary getFilterPresenter;
+    final GetFilterOutputBoundary getFilterPresenter;
 
     public GetFilterInteractor(SearchDataAccessInterface userDataAccessObject,
-                               GetFilterOutputBpundary getFilterPresenter) {
+                               GetFilterOutputBoundary getFilterPresenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.getFilterPresenter = getFilterPresenter;
     }

@@ -7,10 +7,10 @@ public class GetFilterState {
     private String[] subFilter_1 = {"Please select a Filter"};
     private String[] subFilter_2 = {"Please select a Filter"};
     private String[] subFilter_3 = {"Please select a Filter"};
-    private String selectedParentFilter;
-    private String selectedSubFilter1;
-    private String selectedSubFilter2;
-    private String selectedSubFilter3;
+    private String selectedParentFilter = null;
+    private String selectedSubFilter1 = null;
+    private String selectedSubFilter2 = null;
+    private String selectedSubFilter3 = null;
 
     public GetFilterState() {}
 

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
-
+import java.util.Stack;
 
 
 import javax.swing.JComboBox;
@@ -161,3 +161,76 @@ class ComboBoxChangeTrackingExample {
         frame.setVisible(true);
     }
 }
+
+
+class ViewManagerExample {
+    private JFrame frame;
+    private JPanel cardPanel;
+    private CardLayout cardLayout;
+    private Stack<String> viewHistory;
+
+    public ViewManagerExample() {
+        frame = new JFrame("View Manager Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+        viewHistory = new Stack<>();
+
+        addViews();
+
+        frame.add(cardPanel, BorderLayout.CENTER);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                navigateBack();
+            }
+        });
+
+        frame.add(backButton, BorderLayout.SOUTH);
+
+        showView("View1");  // Show the initial view
+    }
+
+    private void addViews() {
+        JPanel view1 = new JPanel();
+        view1.add(new JLabel("View 1"));
+        cardPanel.add(view1, "View1");
+
+        JPanel view2 = new JPanel();
+        view2.add(new JLabel("View 2"));
+        cardPanel.add(view2, "View2");
+
+        // Add more views as needed
+    }
+
+    private void showView(String viewName) {
+        cardLayout.show(cardPanel, viewName);
+        viewHistory.push(viewName);
+    }
+
+    private void navigateBack() {
+        if (!viewHistory.isEmpty()) {
+            viewHistory.pop();  // Remove the current view from history
+            if (!viewHistory.isEmpty()) {
+                String previousView = viewHistory.peek();
+                cardLayout.show(cardPanel, previousView);
+            }
+        }
+    }
+
+    public void display() {
+        frame.setSize(300, 200);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            ViewManagerExample example = new ViewManagerExample();
+            example.display();
+        });
+    }
+}
+

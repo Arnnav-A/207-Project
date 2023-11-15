@@ -4,7 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
-import use_case.getFilter.GetFilterOutputBpundary;
+import use_case.getFilter.GetFilterOutputBoundary;
 import use_case.getFilter.GetFilterOutputData;
 import view.GetFilterView;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GetFilterPresenter implements GetFilterOutputBpundary {
+public class GetFilterPresenter implements GetFilterOutputBoundary {
 
     private final GetFilterViewModel getFilterViewModel;
     private final ViewManagerModel viewManagerModel;

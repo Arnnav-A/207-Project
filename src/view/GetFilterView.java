@@ -1,7 +1,10 @@
 package view;
 
+import interface_adapter.applyFilter.ApplyFilterController;
 import interface_adapter.getFilter.GetFilterState;
 import interface_adapter.getFilter.GetFilterViewModel;
+import interface_adapter.search.SearchState;
+import interface_adapter.search.SearchViewModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +29,9 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
 
     final JButton apply;
 
-    public GetFilterView(GetFilterViewModel getFilterViewModel, SearchView searchView) {
+    public GetFilterView(GetFilterViewModel getFilterViewModel,
+                         SearchViewModel searchViewModel){
+                         // ApplyFilterController applyFilterController) {
         this.getFilterViewModel = getFilterViewModel;
         this.getFilterViewModel.addPropertyChangeListener(this);
 
@@ -43,11 +48,12 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         apply.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        //String parentFilter = parentFilter.getSelected;
                         if (evt.getSource().equals(apply)) {
-                            // SearchState currState = searchView.;
                             System.out.println("Click " + evt.getActionCommand());
-
+                            SearchState searchState = searchViewModel.getState();
+                            String filterChose = filterOutput();
+                            System.out.println(filterChose);
+                            searchState.setFilter(filterChose);
                         }
                     }
                 }
@@ -178,18 +184,6 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
 
 
     private void checkChanged(GetFilterState state) {
-
-        if (!modelParentFilter.getSelectedItem().equals(state.getSelectedParentFilter())) {
-            updateSubFilter1Options(state);
-            updateSubFilter2Options(state);
-            updateSubFilter3Options(state);
-        } else if (!modelSubFilter_1.getSelectedItem().equals(state.getSelectedSubFilter1())) {
-            updateSubFilter2Options(state);
-            updateSubFilter3Options(state);
-        } else {
-            updateSubFilter3Options(state);
-        }
-
         if (state.getSubFilter_1().length > 1) {
             for (int i = 0; i < state.getSubFilter_1().length; i++) {
                 if (!state.getSubFilter_1()[i].equals(modelSubFilter_1.getElementAt(i))) {
@@ -227,7 +221,6 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         }
     }
 
-
     private void updateParentOptions(GetFilterState state) {
         for (int i = 0; i < state.getParentFilter().length; i++) {
             modelParentFilter.addElement(state.getParentFilter()[i]);
@@ -252,6 +245,23 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         modelSubFilter_3.removeAllElements();
         for (int i = 0; i < state.getSubFilter_3().length; i++) {
             modelSubFilter_3.addElement(state.getSubFilter_3()[i]);
+        }
+    }
+
+    private String filterOutput() {
+        GetFilterState state = getFilterViewModel.getState();
+        String parentFilterName = state.getSelectedParentFilter();
+        String subFilter1Name = state.getSelectedSubFilter1();
+        String subFilter2Name = state.getSelectedSubFilter2();
+        String subFilter3Name = state.getSelectedSubFilter3();
+        if (subFilter3Name != null) {
+            return subFilter3Name;
+        } else if (subFilter2Name != null) {
+            return subFilter2Name;
+        } else if (subFilter1Name != null) {
+            return subFilter1Name;
+        } else {
+            return parentFilterName;
         }
     }
 }

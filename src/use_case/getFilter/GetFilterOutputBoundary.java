@@ -1,5 +1,5 @@
 package use_case.getFilter;
 
-public interface GetFilterOutputBpundary {
+public interface GetFilterOutputBoundary {
     void prepareView(GetFilterOutputData filterOutputData);
 }

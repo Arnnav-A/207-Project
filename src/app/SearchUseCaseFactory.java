@@ -12,7 +12,7 @@ import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
 import use_case.getFilter.GetFilterDataAccessInterface;
 import use_case.getFilter.GetFilterInteractor;
-import use_case.getFilter.GetFilterOutputBpundary;
+import use_case.getFilter.GetFilterOutputBoundary;
 import use_case.search.SearchDataAccessInterface;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
@@ -62,8 +62,8 @@ public class SearchUseCaseFactory {
     private static GetFilterController createGetFilterController(ViewManagerModel viewManagerModel,
                                                                  GetFilterViewModel getFilterViewModel,
                                                                  SearchDataAccessInterface searchDataAccessObject) {
-        GetFilterOutputBpundary getFilterOutputBpundary = new GetFilterPresenter(getFilterViewModel, viewManagerModel);
-        GetFilterInteractor getFilterUseCaseInteractor = new GetFilterInteractor(searchDataAccessObject, getFilterOutputBpundary);
+        GetFilterOutputBoundary getFilterOutputBoundary = new GetFilterPresenter(getFilterViewModel, viewManagerModel);
+        GetFilterInteractor getFilterUseCaseInteractor = new GetFilterInteractor(searchDataAccessObject, getFilterOutputBoundary);
         return new GetFilterController(getFilterUseCaseInteractor);
     }
 }

@@ -19,8 +19,7 @@ public class GetFilterViewModel extends ViewModel {
     private String selectedSubFilter1 = "";
     private String selectedSubFilter2 = "";
     private String selectedSubFilter3 = "";
-
-    private CommonFilter selectedFilter;
+    private String selectedFilter;
     private CommonFilter allFilters;
 
     public GetFilterViewModel() {
@@ -35,7 +34,7 @@ public class GetFilterViewModel extends ViewModel {
         return parentFilter;
     }
 
-    public CommonFilter getSelectedFilterName() {
+    public String getSelectedFilter() {
         return selectedFilter;
     }
 
@@ -69,6 +68,9 @@ public class GetFilterViewModel extends ViewModel {
 
     public void setParentFilter() {
         this.parentFilter = state.getSelectedParentFilter();
+        this.selectedSubFilter1 = "";
+        this.selectedSubFilter2 = "";
+        this.selectedSubFilter3 = "";
     }
 
     public void setSubFilters_1() {
@@ -103,6 +105,9 @@ public class GetFilterViewModel extends ViewModel {
         this.allFilters = filters;
     }
 
+    public void setSelectedFilter(String name) {
+        this.selectedFilter = name;
+    }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -119,6 +124,11 @@ public class GetFilterViewModel extends ViewModel {
             sublist.add(0, "Please select a Filter");
             this.subFilters_1 = sublist.toArray(new String[0]);
             state.setSubFilter1(subFilters_1);
+            state.setSubFilter2(new String[]{"Please select a Filter"});
+            state.setSubFilter3(new String[]{"Please select a Filter"});
+            state.setSelectedSubFilter1(null);
+            state.setSelectedSubFilter2(null);
+            state.setSelectedSubFilter3(null);
         }
     }
 
@@ -131,6 +141,9 @@ public class GetFilterViewModel extends ViewModel {
             sublist.add(0, "Please select a Filter");
             this.subFilters_2 = sublist.toArray(new String[0]);
             state.setSubFilter2(subFilters_2);
+            state.setSubFilter3(new String[]{"Please select a Filter"});
+            state.setSelectedSubFilter2(null);
+            state.setSelectedSubFilter3(null);
         }
     }
 
@@ -143,6 +156,7 @@ public class GetFilterViewModel extends ViewModel {
             sublist.add(0, "Please select a Filter");
             this.subFilters_3 = sublist.toArray(new String[0]);
             state.setSubFilter3(subFilters_3);
+            state.setSelectedSubFilter3(null);
         }
     }
 
