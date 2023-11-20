@@ -11,6 +11,7 @@ public class GetFilterState {
     private String selectedSubFilter1 = null;
     private String selectedSubFilter2 = null;
     private String selectedSubFilter3 = null;
+    private String notice = null;
 
     public GetFilterState() {}
 
@@ -46,6 +47,10 @@ public class GetFilterState {
         return selectedSubFilter3;
     }
 
+    public String getNotice() {
+        return notice;
+    }
+
     public void setParentFilter(ArrayList<String> parentFilter) {
         parentFilter.add(0, "Please select a Filter");
         this.parentFilter = parentFilter.toArray(new String[0]);
@@ -77,5 +82,9 @@ public class GetFilterState {
 
     public void setSelectedSubFilter3(String subFilter) {
         this.selectedSubFilter3 = subFilter;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 }

@@ -43,7 +43,7 @@ public class Main {
         ListingView listingView = new ListingView(listingResultsViewModel);
         views.add(listingView, listingView.viewName);
 
-        GetFilterView getFilterView = new GetFilterView(getFilterViewModel, searchViewModel);
+        GetFilterView getFilterView = new GetFilterView(getFilterViewModel, searchViewModel, viewManagerModel);
         views.add(getFilterView, getFilterView.viewName);
 
         viewManagerModel.setActiveView(searchView.viewName);
