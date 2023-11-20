@@ -1,6 +1,5 @@
 package view;
 
-import entity.Place;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.listing_results.ListingResultsState;
 import interface_adapter.listing_results.ListingResultsViewModel;
@@ -21,7 +20,7 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
     private final ViewManagerModel viewManagerModel;
 
 
-    JList<String> places;
+    JList<String> placesName;
     DefaultListModel<String> model;
 
     JLabel specific;
@@ -45,8 +44,8 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
         search.setForeground(Color.blue);
 
         model = new DefaultListModel<>();
-        places = new JList<>(model);
-        JScrollPane scrollPane = new JScrollPane(places);
+        placesName = new JList<>(model);
+        JScrollPane scrollPane = new JScrollPane(placesName);
 
         specific = new JLabel();
 
@@ -65,11 +64,11 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
-        places.addMouseListener(
+        placesName.addMouseListener(
                 new MouseAdapter() {
                     public void mouseClicked(MouseEvent evt) {
                         if (evt.getClickCount() == 2) {
-                            String name = places.getSelectedValue();
+                            String name = placesName.getSelectedValue();
                         }
                     }
                 }
@@ -93,8 +92,8 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         ListingResultsState listingState = (ListingResultsState) evt.getNewValue();
         search.setText("City: " + listingState.getCity() + " / Filter: " + listingState.getFilter());
-        for (Place place : listingState.getListing().getPoints()) {
-            model.addElement(place.getName());
+        for (String placeName : listingState.getPlacesName()) {
+            model.addElement(placeName);
         }
     }
 }

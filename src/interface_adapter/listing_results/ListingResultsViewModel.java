@@ -13,7 +13,7 @@ public class ListingResultsViewModel extends ViewModel {
     private ListingResultsState state = new ListingResultsState();
     private String city;
     private String filter;
-    private ArrayList<Place> points;
+    private ArrayList<String> placesName;
 
 
     public ListingResultsViewModel() {
@@ -32,8 +32,8 @@ public class ListingResultsViewModel extends ViewModel {
         return filter;
     }
 
-    public ArrayList<Place> getPoints() {
-        return points;
+    public ArrayList<String> getPlacesName() {
+        return placesName;
     }
 
     public void setState(ListingResultsState state) {
@@ -48,8 +48,8 @@ public class ListingResultsViewModel extends ViewModel {
         this.filter = filter;
     }
 
-    public void setPoints(ArrayList<Place> points) {
-        this.points = points;
+    public void setPlacesName(ArrayList<String> placesName) {
+        this.placesName = placesName;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);

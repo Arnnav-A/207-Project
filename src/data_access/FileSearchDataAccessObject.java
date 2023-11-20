@@ -22,10 +22,10 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     private final PlaceFactory placeFactory;
 
 
-    public FileSearchDataAccessObject(PlaceFactory commonPlaceFactory, String filtersPathCSV, String listingPathJSON) {
+    public FileSearchDataAccessObject(PlaceFactory placeFactory, String filtersPathCSV, String listingPathJSON) {
         this.filtersFileCSV = new File(filtersPathCSV);
         this.listingFileJSON = new File(listingPathJSON);
-        this.placeFactory = commonPlaceFactory;
+        this.placeFactory = placeFactory;
     }
 
     @Override

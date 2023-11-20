@@ -2,9 +2,11 @@ package use_case.search;
 
 import entity.Listing;
 
+import java.util.ArrayList;
+
 public class SearchOutputData {
 
-    private final Listing listing;
+    private final ArrayList<String> placesName;
 
     private final String city;
 
@@ -12,16 +14,16 @@ public class SearchOutputData {
 
     private boolean useCaseFailed;
 
-    public SearchOutputData(Listing listing, String city, String filter, boolean useCaseFailed) {
-        this.listing = listing;
+    public SearchOutputData(ArrayList<String> places_name, String city, String filter, boolean useCaseFailed) {
+        this.placesName = places_name;
         this.city = city;
         this.filter = filter;
         this.useCaseFailed = useCaseFailed;
     }
 
 
-    public Listing getListing() {
-        return listing;
+    public ArrayList<String> getPlacesName() {
+        return placesName;
     }
 
     public String getCity() {
