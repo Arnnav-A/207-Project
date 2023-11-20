@@ -1,7 +1,6 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.applyFilter.ApplyFilterController;
 import interface_adapter.getFilter.GetFilterState;
 import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.search.SearchState;
@@ -326,7 +325,8 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
     }
 
     private String filterOutput(GetFilterState state) {  // Asserting the lowest level of filters chose by user. Return it to SearchView.
-        String parentFilterName = state.getSelectedParentFilter();
+        String parentFilterName = getFilterViewModel.getParentFilter();
+        //String parentFilterName = state.getSelectedParentFilter();
         String subFilter1Name = state.getSelectedSubFilter1();
         String subFilter2Name = state.getSelectedSubFilter2();
         String subFilter3Name = state.getSelectedSubFilter3();
