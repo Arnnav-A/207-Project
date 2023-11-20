@@ -3,7 +3,6 @@ package app;
 import data_access.FileSearchDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.applyFilter.ApplyFilterController;
 import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.search.SearchViewModel;
