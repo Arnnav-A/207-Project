@@ -49,7 +49,7 @@ public class HistoryDataAccessObject implements GetHistoryDataAccessInterface, C
     public void save(LocalDateTime now, String city, String filter) { // Will be changing to boolean depending on success
         try {
             FileWriter filewriter = new FileWriter(historyFileCSV, true);
-            String data = now.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "," + city + "," + filter;
+            String data = now.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "," + city + "," + filter + '\n';
             filewriter.write(data);
             filewriter.flush();
             filewriter.close(); // return true
