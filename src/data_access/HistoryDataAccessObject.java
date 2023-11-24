@@ -35,26 +35,26 @@ public class HistoryDataAccessObject implements GetHistoryDataAccessInterface, C
     }
 
     @Override
-    public void clearHistory() { // Will be changing to boolean depending on success
+    public void clearHistory() {
         try {
             FileWriter fileWriter = new FileWriter(historyFileCSV);
             fileWriter.flush();
             fileWriter.close(); // return true
         } catch (IOException e) {
-            throw new RuntimeException(e); // return False
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void save(LocalDateTime now, String city, String filter) { // Will be changing to boolean depending on success
+    public void save(LocalDateTime now, String city, String filter) {
         try {
             FileWriter filewriter = new FileWriter(historyFileCSV, true);
             String data = now.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "," + city + "," + filter + '\n';
             filewriter.write(data);
             filewriter.flush();
-            filewriter.close(); // return true
+            filewriter.close();
         } catch (IOException e) {
-            throw new RuntimeException(e); // return false
+            throw new RuntimeException(e);
         }
     }
 }

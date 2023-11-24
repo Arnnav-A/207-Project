@@ -4,9 +4,13 @@ import entity.CommonListingFactory;
 import entity.ListingFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
+import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import use_case.save_history.SaveDataAccessInterface;
+import use_case.save_history.SaveInputBoundary;
+import use_case.save_history.SaveInteractor;
 import use_case.search.SearchDataAccessInterface;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
@@ -24,11 +28,13 @@ public class SearchUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
             ListingResultsViewModel listingResultsViewModel,
-            SearchDataAccessInterface searchDataAccessObject) {
+            SearchDataAccessInterface searchDataAccessObject,
+            SaveDataAccessInterface saveDataAccessInterface) {
 
         try {
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
-            return new SearchView(searchViewModel, searchController);
+            SaveController saveController = createSaveUseCase(saveDataAccessInterface);
+            return new SearchView(searchViewModel, searchController, saveController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -49,5 +55,12 @@ public class SearchUseCaseFactory {
                 searchDataAccessObject, searchOutputBoundary, listingFactory);
 
         return new SearchController(searchInteractor);
+    }
+
+    private static SaveController createSaveUseCase(SaveDataAccessInterface saveDataAccessInterface) {
+
+        SaveInputBoundary saveInteractor = new SaveInteractor(saveDataAccessInterface);
+
+        return new SaveController(saveInteractor);
     }
 }

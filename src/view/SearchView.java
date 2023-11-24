@@ -1,9 +1,9 @@
 package view;
 
+import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
-import use_case.search.SearchInputData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     // create button for search.
     final JButton search;
 
-    public SearchView(SearchViewModel searchViewModel, SearchController searchController) {
+    public SearchView(SearchViewModel searchViewModel, SearchController searchController, SaveController saveController) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
         this.searchViewModel.addPropertyChangeListener(this);
@@ -57,6 +57,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             SearchState currentState = searchViewModel.getState();
 
                             searchController.execute(
+                                    currentState.getCityName(),
+                                    currentState.getFilter()
+                            );
+                            saveController.execute(
                                     currentState.getCityName(),
                                     currentState.getFilter()
                             );
