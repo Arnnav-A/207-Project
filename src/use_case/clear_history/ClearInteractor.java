@@ -14,7 +14,7 @@ public class ClearInteractor implements ClearInputBoundary {
     @Override
     public void execute() throws FileNotFoundException {
         ClearOutputData clearOutputData = new ClearOutputData();
-        userDataAccessObject.deleteHistory();
+        userDataAccessObject.clearHistory();
         userPresenter.prepareView(clearOutputData);
     }
 }
