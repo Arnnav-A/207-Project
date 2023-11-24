@@ -7,6 +7,9 @@ import use_case.save_history.SaveDataAccessInterface;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class HistoryDataAccessObject implements GetHistoryDataAccessInterface, ClearDataAccessInterface, SaveDataAccessInterface {
     private final File historyFileCSV;
@@ -16,8 +19,19 @@ public class HistoryDataAccessObject implements GetHistoryDataAccessInterface, C
     }
 
     @Override
-    public String getHistory() {
-        return null;
+    public ArrayList<ArrayList<String>> getHistory() {
+        ArrayList<ArrayList<String>> history = new ArrayList<>();
+        try {
+            Scanner reader = new Scanner(historyFileCSV);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                ArrayList<String> historyLine = new ArrayList<>(List.of(data.split(",")));
+                history.add(historyLine);
+            }
+            return history;
+        } catch (FileNotFoundException e) {
+            return history;
+        }
     }
 
     @Override

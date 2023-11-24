@@ -1,5 +1,7 @@
 package use_case.get_history;
 
+import java.util.ArrayList;
+
 public interface GetHistoryDataAccessInterface {
-    String getHistory();
+    ArrayList<ArrayList<String>> getHistory();
 }

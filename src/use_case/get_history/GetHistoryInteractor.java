@@ -1,6 +1,7 @@
 package use_case.get_history;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class GetHistoryInteractor implements GetHistoryInputBoundary {
     final GetHistoryDataAccessInterface userDataAccessObject;
@@ -13,7 +14,7 @@ public class GetHistoryInteractor implements GetHistoryInputBoundary {
 
     @Override
     public void execute() throws FileNotFoundException {
-        String userHistory = userDataAccessObject.getHistory();
+        ArrayList<ArrayList<String>> userHistory = userDataAccessObject.getHistory();
         GetHistoryOutputData getHistoryOutputData = new GetHistoryOutputData(userHistory);
         userPresenter.prepareview(getHistoryOutputData);
 
