@@ -1,6 +1,7 @@
 package app;
 
 import data_access.FileSearchDataAccessObject;
+import data_access.HistoryDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
@@ -33,7 +34,10 @@ public class Main {
         FileSearchDataAccessObject searchDataAccessObject;
         searchDataAccessObject = new FileSearchDataAccessObject(new CommonPlaceFactory(), "src/data_access/filters.csv", "listingJSON.json");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
+        HistoryDataAccessObject historyDataAccessObject;
+        historyDataAccessObject = new HistoryDataAccessObject("history.csv");
+
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = new ListingView(listingResultsViewModel);

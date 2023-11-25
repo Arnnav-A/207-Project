@@ -29,6 +29,7 @@ public class CommonListing implements Listing {
         return filter;
     }
 
+    @Override
     public Place getPlaceFromName(String name) {
         for (Place point : points) {
             if (point.getName().equals(name)) {
