@@ -2,7 +2,6 @@ package interface_adapter.clear;
 
 import use_case.clear_history.ClearInputBoundary;
 
-import java.io.FileNotFoundException;
 
 public class ClearController {
     final ClearInputBoundary historyClearUseCaseInteractor;
@@ -10,7 +9,7 @@ public class ClearController {
     public ClearController(ClearInputBoundary historyClearUseCaseInteractor) {
         this.historyClearUseCaseInteractor = historyClearUseCaseInteractor;
     }
-    public void execute() throws FileNotFoundException {
+    public void execute(){
         historyClearUseCaseInteractor.execute();
     }
 }

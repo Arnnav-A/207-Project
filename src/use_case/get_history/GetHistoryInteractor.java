@@ -1,6 +1,4 @@
 package use_case.get_history;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GetHistoryInteractor implements GetHistoryInputBoundary {

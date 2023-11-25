@@ -1,7 +1,5 @@
 package use_case.clear_history;
 
-import java.io.FileNotFoundException;
-
 public class ClearInteractor implements ClearInputBoundary {
     final ClearDataAccessInterface userDataAccessObject;
     final ClearOutputBoundary userPresenter;

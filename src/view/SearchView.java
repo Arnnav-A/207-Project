@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileNotFoundException;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search";
@@ -85,11 +84,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(getHistory)) {
 
-                            try {
-                                getHistoryController.execute();
-                            } catch (FileNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
+                            getHistoryController.execute();
                         }
                     }
                 }
@@ -101,11 +96,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(clearHistory)) {
 
-                            try {
-                                clearController.execute();
-                            } catch (FileNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
+                            clearController.execute();
                         }
                     }
                 }
