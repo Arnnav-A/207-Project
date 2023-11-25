@@ -37,7 +37,7 @@ public class Main {
         HistoryDataAccessObject historyDataAccessObject;
         historyDataAccessObject = new HistoryDataAccessObject("history.csv");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = new ListingView(listingResultsViewModel);

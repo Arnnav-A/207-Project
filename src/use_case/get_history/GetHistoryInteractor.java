@@ -13,9 +13,14 @@ public class GetHistoryInteractor implements GetHistoryInputBoundary {
     }
 
     @Override
-    public void execute() throws FileNotFoundException {
+    public void execute(){
         ArrayList<ArrayList<String>> userHistory = userDataAccessObject.getHistory();
-        GetHistoryOutputData getHistoryOutputData = new GetHistoryOutputData(userHistory);
+        StringBuilder formattedHistory = new StringBuilder();
+        for (ArrayList<String> history:userHistory) {
+            formattedHistory.append(history.toString() + "\n");
+        }
+        String history = formattedHistory.toString();
+        GetHistoryOutputData getHistoryOutputData = new GetHistoryOutputData(history);
         userPresenter.prepareview(getHistoryOutputData);
 
     }

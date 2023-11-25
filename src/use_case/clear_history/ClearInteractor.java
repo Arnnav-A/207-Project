@@ -12,7 +12,7 @@ public class ClearInteractor implements ClearInputBoundary {
     }
 
     @Override
-    public void execute() throws FileNotFoundException {
+    public void execute(){
         ClearOutputData clearOutputData = new ClearOutputData();
         userDataAccessObject.clearHistory();
         userPresenter.prepareView(clearOutputData);
