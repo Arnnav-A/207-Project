@@ -15,7 +15,7 @@ public class GetHistoryInteractor implements GetHistoryInputBoundary {
         ArrayList<ArrayList<String>> userHistory = userDataAccessObject.getHistory();
         StringBuilder formattedHistory = new StringBuilder();
         for (ArrayList<String> history:userHistory) {
-            formattedHistory.append(history.toString() + "\n");
+            formattedHistory.append(history.toString()).append("\n");
         }
         String history = formattedHistory.toString();
         GetHistoryOutputData getHistoryOutputData = new GetHistoryOutputData(history);
