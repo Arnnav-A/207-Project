@@ -9,6 +9,4 @@ public interface Listing {
     String getCity();
 
     String getFilter();
-
-    Place getPlaceFromName(String name);
 }
