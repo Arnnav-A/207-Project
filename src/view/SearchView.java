@@ -1,9 +1,11 @@
 package view;
 
+import interface_adapter.clear.ClearController;
+import interface_adapter.get_history.GetHistoryController;
+import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
-import use_case.search.SearchInputData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +27,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final SearchController searchController;
     // create button for search.
     final JButton search;
+    final JButton getHistory;
+    final JButton clearHistory;
 
-    public SearchView(SearchViewModel searchViewModel, SearchController searchController) {
+
+    public SearchView(SearchViewModel searchViewModel, SearchController searchController, SaveController saveController,
+                      GetHistoryController getHistoryController, ClearController clearController) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
         this.searchViewModel.addPropertyChangeListener(this);
@@ -40,10 +46,14 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new JLabel("City"), cityNameInputField);
         LabelTextPanel filterInfo = new LabelTextPanel(
                 new JLabel("Filter"), filterInputField);
-        // create panel for the search button.
+        // create panel for the search, get history, and clear history buttons.
         JPanel buttons = new JPanel();
         search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);
+        getHistory = new JButton(searchViewModel.GET_HISTORY_BUTTON_LABEL);
+        clearHistory = new JButton(searchViewModel.CLEAR_HISTORY_BUTTON_LABEL);
         buttons.add(search);
+        buttons.add(getHistory);
+        buttons.add(clearHistory);
 
         errorField.setAlignmentX(Component.CENTER_ALIGNMENT);
         errorField.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -60,10 +70,38 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                                     currentState.getCityName(),
                                     currentState.getFilter()
                             );
+                            saveController.execute(
+                                    currentState.getCityName(),
+                                    currentState.getFilter()
+                            );
                         }
                     }
                 }
         );
+        // add Action Listener to check if the event is getHistory.
+        getHistory.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(getHistory)) {
+
+                            getHistoryController.execute();
+                        }
+                    }
+                }
+        );
+
+        // add Action Listener to check if the event is clearHistory.
+        clearHistory.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(clearHistory)) {
+
+                            clearController.execute();
+                        }
+                    }
+                }
+        );
+
 
         // add Key Listener to get what was entered in the input field.
         cityNameInputField.addKeyListener(
