@@ -30,9 +30,6 @@ import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
 import view.SearchView;
 
-import javax.swing.*;
-import java.io.IOException;
-
 public class SearchUseCaseFactory {
 
     private SearchUseCaseFactory() {}
