@@ -4,6 +4,8 @@ import interface_adapter.clear.ClearController;
 import interface_adapter.clear.ClearState;
 import interface_adapter.clear.ClearViewModel;
 import interface_adapter.get_history.GetHistoryController;
+import interface_adapter.get_history.GetHistoryState;
+import interface_adapter.get_history.GetHistoryViewModel;
 import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
@@ -17,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search";
@@ -34,7 +37,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController, SaveController saveController,
-                      GetHistoryController getHistoryController, ClearController clearController, ClearViewModel clearViewModel) {
+                      GetHistoryController getHistoryController, ClearController clearController, ClearViewModel clearViewModel, GetHistoryViewModel getHistoryViewModel) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
         this.searchViewModel.addPropertyChangeListener(this);
@@ -85,8 +88,19 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(getHistory)) {
-
                             getHistoryController.execute();
+                            GetHistoryState currentState = getHistoryViewModel.getState();
+                            ArrayList<ArrayList<String>> history = currentState.getHistory();
+                            String message = "No history found.";
+                            if (history.isEmpty()) {
+                                JOptionPane.showMessageDialog(getHistory.getTopLevelAncestor(), message);
+                            } else {
+                                StringBuilder historyString = new StringBuilder();
+                                for (ArrayList<String> historyEntry : history) {
+                                    historyString.append(historyEntry.toString()).append("\n");
+                                }
+                                JOptionPane.showMessageDialog(getHistory.getTopLevelAncestor(), historyString);
+                            }
                         }
                     }
                 }

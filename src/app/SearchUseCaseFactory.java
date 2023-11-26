@@ -8,6 +8,7 @@ import interface_adapter.clear.ClearPresenter;
 import interface_adapter.clear.ClearViewModel;
 import interface_adapter.get_history.GetHistoryController;
 import interface_adapter.get_history.GetHistoryPresenter;
+import interface_adapter.get_history.GetHistoryViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
@@ -38,6 +39,7 @@ public class SearchUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
             ClearViewModel clearViewModel,
+            GetHistoryViewModel getHistoryViewModel,
             ListingResultsViewModel listingResultsViewModel,
             SearchDataAccessInterface searchDataAccessObject,
             SaveDataAccessInterface saveDataAccessInterface,
@@ -46,9 +48,9 @@ public class SearchUseCaseFactory {
 
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
             SaveController saveController = createSaveUseCase(saveDataAccessInterface);
-            GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryDataAccessObject);
+            GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryViewModel, getHistoryDataAccessObject);
             ClearController clearController = createClearUseCase(viewManagerModel, searchViewModel, clearViewModel, clearDataAccessObject);
-            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearController, clearViewModel);
+            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearController, clearViewModel, getHistoryViewModel);
         }
 
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
@@ -75,9 +77,10 @@ public class SearchUseCaseFactory {
 
     private static GetHistoryController createGetHistoryUseCase(ViewManagerModel viewManagerModel,
                                                                 SearchViewModel searchViewModel,
+                                                                GetHistoryViewModel getHistoryViewModel,
                                                                 GetHistoryDataAccessInterface getHistoryDataAccessObject) {
 
-        GetHistoryOutputBoundary getHistoryOutputBoundary = new GetHistoryPresenter(searchViewModel, viewManagerModel);
+        GetHistoryOutputBoundary getHistoryOutputBoundary = new GetHistoryPresenter(searchViewModel, viewManagerModel, getHistoryViewModel);
 
         GetHistoryInputBoundary getHistoryInteractor = new GetHistoryInteractor(getHistoryDataAccessObject, getHistoryOutputBoundary);
 
