@@ -5,5 +5,5 @@ import javax.swing.*;
 public class ClearOutputData {
     public ClearOutputData() {}
 
-    public void message() {JOptionPane.showMessageDialog(null, "User history is deleted.");}
+    public final static String message = "User history is deleted.";
 }

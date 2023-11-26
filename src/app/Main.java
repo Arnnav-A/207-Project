@@ -4,6 +4,7 @@ import data_access.FileSearchDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.clear.ClearViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 
@@ -29,6 +30,7 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SearchViewModel searchViewModel = new SearchViewModel();
+        ClearViewModel clearViewModel = new ClearViewModel();
         ListingResultsViewModel listingResultsViewModel = new ListingResultsViewModel();
 
         FileSearchDataAccessObject searchDataAccessObject;
@@ -37,7 +39,7 @@ public class Main {
         HistoryDataAccessObject historyDataAccessObject;
         historyDataAccessObject = new HistoryDataAccessObject("history.csv");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, clearViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = new ListingView(listingResultsViewModel);

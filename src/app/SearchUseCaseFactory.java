@@ -5,6 +5,7 @@ import entity.ListingFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.clear.ClearController;
 import interface_adapter.clear.ClearPresenter;
+import interface_adapter.clear.ClearViewModel;
 import interface_adapter.get_history.GetHistoryController;
 import interface_adapter.get_history.GetHistoryPresenter;
 import interface_adapter.listing_results.ListingResultsViewModel;
@@ -39,29 +40,24 @@ public class SearchUseCaseFactory {
     public static SearchView create(
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
+            ClearViewModel clearViewModel,
             ListingResultsViewModel listingResultsViewModel,
             SearchDataAccessInterface searchDataAccessObject,
             SaveDataAccessInterface saveDataAccessInterface,
             GetHistoryDataAccessInterface getHistoryDataAccessObject,
             ClearDataAccessInterface clearDataAccessObject) {
 
-        try {
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
             SaveController saveController = createSaveUseCase(saveDataAccessInterface);
             GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryDataAccessObject);
-            ClearController clearController = createClearUseCase(viewManagerModel, searchViewModel, clearDataAccessObject);
-            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearController);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            ClearController clearController = createClearUseCase(viewManagerModel, searchViewModel, clearViewModel, clearDataAccessObject);
+            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearController, clearViewModel);
         }
-
-        return null;
-    }
 
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
                                                         SearchViewModel searchViewModel,
                                                         ListingResultsViewModel listingResultsViewModel,
-                                                        SearchDataAccessInterface searchDataAccessObject) throws IOException {
+                                                        SearchDataAccessInterface searchDataAccessObject) {
 
         SearchOutputBoundary searchOutputBoundary = new SearchPresenter(searchViewModel, listingResultsViewModel, viewManagerModel);
 
@@ -93,9 +89,10 @@ public class SearchUseCaseFactory {
 
     private static ClearController createClearUseCase(ViewManagerModel viewManagerModel,
                                                       SearchViewModel searchViewModel,
+                                                      ClearViewModel clearViewModel,
                                                       ClearDataAccessInterface clearDataAccessObject) {
 
-        ClearOutputBoundary clearOutputBoundary = new ClearPresenter(searchViewModel, viewManagerModel);
+        ClearOutputBoundary clearOutputBoundary = new ClearPresenter(searchViewModel, viewManagerModel, clearViewModel);
 
         ClearInputBoundary clearInteractor = new ClearInteractor(clearDataAccessObject, clearOutputBoundary);
 
