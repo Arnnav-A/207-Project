@@ -5,20 +5,21 @@ import entity.Listing;
 import java.util.ArrayList;
 
 public class ListingResultsState {
-    private ArrayList<String> placesName;
+    private ArrayList<String> places_names;
     public String city;
     public String filter;
+    private String place_name;
 
     public ListingResultsState(ListingResultsState copy) {
-        placesName = copy.placesName;
+        places_names = copy.places_names;
         city = copy.city;
         filter = copy.filter;
     }
 
     public ListingResultsState() {}
 
-    public ArrayList<String> getPlacesName() {
-        return placesName;
+    public ArrayList<String> getPlacesNames() {
+        return places_names;
     }
 
     public String getCity() {
@@ -29,8 +30,12 @@ public class ListingResultsState {
         return filter;
     }
 
-    public void setPlacesName(ArrayList<String> placesName) {
-        this.placesName = placesName;
+    public String getPlaceName() {
+        return place_name;
+    }
+
+    public void setPlacesNames(ArrayList<String> places_names) {
+        this.places_names = places_names;
     }
 
     public void setCity(String city) {
@@ -39,5 +44,9 @@ public class ListingResultsState {
 
     public void setFilter(String filter) {
         this.filter = filter;
+    }
+
+    public void setPlaceName(String place_name) {
+        this.place_name = place_name;
     }
 }

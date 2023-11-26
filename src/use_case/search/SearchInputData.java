@@ -5,7 +5,6 @@ public class SearchInputData {
     private final String city;
     private final String filter;
 
-
     public SearchInputData(String city, String filter) {
         this.city = city;
         this.filter = filter;

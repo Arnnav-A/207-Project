@@ -7,6 +7,7 @@ import entity.Place;
 import java.util.ArrayList;
 
 public class SearchInteractor implements SearchInputBoundary {
+
     final SearchDataAccessInterface searchDataAccessObject;
     final SearchOutputBoundary searchPresenter;
     final ListingFactory listingFactory;

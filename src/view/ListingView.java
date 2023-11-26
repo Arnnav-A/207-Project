@@ -3,6 +3,7 @@ package view;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.listing_results.ListingResultsState;
 import interface_adapter.listing_results.ListingResultsViewModel;
+import interface_adapter.place_info.PlaceInfoController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,21 +19,20 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
     public final String viewName = "listing";
     private final ListingResultsViewModel listingResultsViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final PlaceInfoController placeInfoController;
 
-
-    JList<String> placesName;
+    JList<String> places_names;
     DefaultListModel<String> model;
 
     JLabel specific;
-
     JLabel search;
-
     JButton back;
 
-    public ListingView(ListingResultsViewModel listingResultsViewModel, ViewManagerModel viewManagerModel) {
+    public ListingView(ListingResultsViewModel listingResultsViewModel, ViewManagerModel viewManagerModel, PlaceInfoController placeInfoController) {
         this.listingResultsViewModel = listingResultsViewModel;
-        this.listingResultsViewModel.addPropertyChangeListener(this);
+        this.placeInfoController = placeInfoController;
         this.viewManagerModel = viewManagerModel;
+        this.listingResultsViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(listingResultsViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -44,8 +44,8 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
         search.setForeground(Color.blue);
 
         model = new DefaultListModel<>();
-        placesName = new JList<>(model);
-        JScrollPane scrollPane = new JScrollPane(placesName);
+        places_names = new JList<>(model);
+        JScrollPane scrollPane = new JScrollPane(places_names);
 
         specific = new JLabel();
 
@@ -64,11 +64,15 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
-        placesName.addMouseListener(
+        places_names.addMouseListener(
                 new MouseAdapter() {
                     public void mouseClicked(MouseEvent evt) {
                         if (evt.getClickCount() == 2) {
-                            String name = placesName.getSelectedValue();
+                            String name = places_names.getSelectedValue();
+                            ListingResultsState state = listingResultsViewModel.getState();
+                            state.setPlaceName(name);
+                            listingResultsViewModel.setState(state);
+                            placeInfoController.execute(state.getPlaceName());
                         }
                     }
                 }
@@ -92,7 +96,7 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         ListingResultsState listingState = (ListingResultsState) evt.getNewValue();
         search.setText("City: " + listingState.getCity() + " / Filter: " + listingState.getFilter());
-        for (String placeName : listingState.getPlacesName()) {
+        for (String placeName : listingState.getPlacesNames()) {
             model.addElement(placeName);
         }
     }

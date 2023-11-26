@@ -1,12 +1,15 @@
 package app;
 
+import data_access.FilePlaceInfoDataAccessObject;
 import data_access.FileSearchDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
+import interface_adapter.place_info.PlaceInfoViewModel;
 import interface_adapter.search.SearchViewModel;
 
 import view.ListingView;
+import view.PlaceInfoView;
 import view.SearchView;
 import view.ViewManager;
 
@@ -29,15 +32,22 @@ public class Main {
 
         SearchViewModel searchViewModel = new SearchViewModel();
         ListingResultsViewModel listingResultsViewModel = new ListingResultsViewModel();
+        PlaceInfoViewModel placeInfoViewModel = new PlaceInfoViewModel();
 
         FileSearchDataAccessObject searchDataAccessObject;
         searchDataAccessObject = new FileSearchDataAccessObject(new CommonPlaceFactory(), "src/data_access/filters.csv", "listingJSON.json");
 
+        FilePlaceInfoDataAccessObject placeInfoDataAccessObject;
+        placeInfoDataAccessObject = new FilePlaceInfoDataAccessObject("listingJSON.json", new CommonPlaceFactory());
+
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
         views.add(searchView, searchView.viewName);
 
-        ListingView listingView = new ListingView(listingResultsViewModel, viewManagerModel);
+        ListingView listingView = ListingUseCaseFactory.create(listingResultsViewModel, viewManagerModel, placeInfoDataAccessObject, placeInfoViewModel);
         views.add(listingView, listingView.viewName);
+
+        PlaceInfoView placeInfoView = new PlaceInfoView(placeInfoViewModel, viewManagerModel);
+        views.add(placeInfoView, placeInfoView.viewname);
 
         viewManagerModel.setActiveView(searchView.viewName);
         viewManagerModel.firePropertyChanged();
@@ -45,11 +55,4 @@ public class Main {
         application.pack();
         application.setVisible(true);
     }
-
-    //ListingFactory listingFactory = new CommonListingFactory();
-    //CommonPlaceFactory placeFactory = new CommonPlaceFactory();
-    //SearchDataAccessInterface fileSearchDataAccessObject = new FileSearchDataAccessObject(placeFactory, "src/data_access/filters.csv", "listingJSON.json");
-    //SearchInputBoundary searchInteractor = new SearchInteractor(fileSearchDataAccessObject, listingFactory);
-    //SearchController searchController = new SearchController(searchInteractor);
-        //searchController.execute("Toronto", "winery"); //change the city name and the filter to test it!
 }

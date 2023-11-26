@@ -6,24 +6,20 @@ import java.util.ArrayList;
 
 public class SearchOutputData {
 
-    private final ArrayList<String> placesName;
-
+    private final ArrayList<String> places_names;
     private final String city;
-
     private final String filter;
-
     private boolean useCaseFailed;
 
-    public SearchOutputData(ArrayList<String> places_name, String city, String filter, boolean useCaseFailed) {
-        this.placesName = places_name;
+    public SearchOutputData(ArrayList<String> places_names, String city, String filter, boolean useCaseFailed) {
+        this.places_names = places_names;
         this.city = city;
         this.filter = filter;
         this.useCaseFailed = useCaseFailed;
     }
 
-
-    public ArrayList<String> getPlacesName() {
-        return placesName;
+    public ArrayList<String> getPlacesNames() {
+        return places_names;
     }
 
     public String getCity() {
