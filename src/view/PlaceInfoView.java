@@ -54,7 +54,7 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
                 new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 1) {
                     try {
                         Desktop.getDesktop().browse(new URI(hyperlink.getText()));
                     } catch (IOException | URISyntaxException e1) {
