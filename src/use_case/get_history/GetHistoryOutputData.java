@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GetHistoryOutputData {
-    private ArrayList<ArrayList<String>> userHistory;
-    public GetHistoryOutputData(ArrayList<ArrayList<String>> history) {
+    private String userHistory;
+    public GetHistoryOutputData(String history) {
         this.userHistory = history;
     }
     public void message() {

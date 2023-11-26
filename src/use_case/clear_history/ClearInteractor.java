@@ -1,7 +1,5 @@
 package use_case.clear_history;
 
-import java.io.FileNotFoundException;
-
 public class ClearInteractor implements ClearInputBoundary {
     final ClearDataAccessInterface userDataAccessObject;
     final ClearOutputBoundary userPresenter;
@@ -12,7 +10,7 @@ public class ClearInteractor implements ClearInputBoundary {
     }
 
     @Override
-    public void execute() throws FileNotFoundException {
+    public void execute(){
         ClearOutputData clearOutputData = new ClearOutputData();
         userDataAccessObject.clearHistory();
         userPresenter.prepareView(clearOutputData);
