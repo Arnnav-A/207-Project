@@ -1,6 +1,5 @@
 package use_case.get_history;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class GetHistoryOutputData {
