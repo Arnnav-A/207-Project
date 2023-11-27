@@ -5,7 +5,6 @@ import interface_adapter.getFilter.GetFilterState;
 import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +17,8 @@ import java.beans.PropertyChangeListener;
 public class GetFilterView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "getFilter";
     private GetFilterViewModel getFilterViewModel;
-    private SearchViewModel searchViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final SearchViewModel searchViewModel;
+    private final ViewManagerModel viewManagerModel;
     DefaultComboBoxModel<String> modelParentFilter = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> modelSubFilter_1 = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> modelSubFilter_2 = new DefaultComboBoxModel<>();
@@ -111,7 +110,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                                     System.out.println("Choose: " + selectedItem);
                                     state.setSelectedParentFilter(selectedItem);
                                     getFilterViewModel.setState(state);
-                                    getFilterViewModel.setParentFilter();
+                                    getFilterViewModel.setSelectedParentFilter();
                                     getFilterViewModel.parentFilterSelectionChanged();
                                     getFilterViewModel.firePropertyChanged();
                                 } else {
@@ -325,8 +324,8 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
     }
 
     private String filterOutput(GetFilterState state) {  // Asserting the lowest level of filters chose by user. Return it to SearchView.
-        String parentFilterName = getFilterViewModel.getParentFilter();
-        //String parentFilterName = state.getSelectedParentFilter();
+        //String parentFilterName = getFilterViewModel.getParentFilter();
+        String parentFilterName = state.getSelectedParentFilter();
         String subFilter1Name = state.getSelectedSubFilter1();
         String subFilter2Name = state.getSelectedSubFilter2();
         String subFilter3Name = state.getSelectedSubFilter3();

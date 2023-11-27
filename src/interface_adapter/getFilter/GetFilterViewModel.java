@@ -13,7 +13,7 @@ public class GetFilterViewModel extends ViewModel {
     public final String RESET_BUTTON_LABEL = "Reset Selection";
     public final String TITLE_LABEL = "All Filters View";
     private GetFilterState state = new GetFilterState();
-    private String parentFilter= "Please select a Filter";
+    private String[] parentFilter= {"Please select a Filter"};
     private String[] subFilters_1 = {"Please select a Filter"};
     private String[] subFilters_2 = {"Please select a Filter"};
     private String[] subFilters_3 = {"Please select a Filter"};
@@ -21,7 +21,7 @@ public class GetFilterViewModel extends ViewModel {
     private String selectedSubFilter1 = "";
     private String selectedSubFilter2 = "";
     private String selectedSubFilter3 = "";
-    private String selectedFilter;
+    private String selectedParentFilter;
     private CommonFilter allFilters;
 
     public GetFilterViewModel() {
@@ -32,12 +32,12 @@ public class GetFilterViewModel extends ViewModel {
         return state;
     }
 
-    public String getParentFilter() {
+    public String[] getParentFilter() {
         return parentFilter;
     }
 
-    public String getSelectedFilter() {
-        return selectedFilter;
+    public String getSelectedParentFilter() {
+        return selectedParentFilter;
     }
 
     public String[] getSubFilters_1() {
@@ -69,7 +69,7 @@ public class GetFilterViewModel extends ViewModel {
     }
 
     public void setParentFilter() {
-        this.parentFilter = state.getSelectedParentFilter();
+        this.parentFilter = state.getParentFilter();
         this.selectedSubFilter1 = "";
         this.selectedSubFilter2 = "";
         this.selectedSubFilter3 = "";
@@ -87,8 +87,8 @@ public class GetFilterViewModel extends ViewModel {
         this.subFilters_3 = state.getSubFilter_3();
     }
 
-    public void setSelectedParentFilter(String parentFilter) {
-        this.parentFilter = parentFilter;
+    public void setSelectedParentFilter() {
+        this.selectedParentFilter = state.getSelectedParentFilter();
     }
 
     public void setSelectedSubFilter1(String selectedSubFilter1) {
@@ -108,7 +108,7 @@ public class GetFilterViewModel extends ViewModel {
     }
 
     public void setSelectedFilter(String name) {
-        this.selectedFilter = name;
+        this.selectedParentFilter = name;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -119,8 +119,7 @@ public class GetFilterViewModel extends ViewModel {
 
 
     public void parentFilterSelectionChanged() {
-        if (!parentFilter.equals("Please select a Filter")) {
-            String selectedParentFilter = this.parentFilter;
+        String selectedParentFilter = this.selectedParentFilter;
             System.out.println("ViewModel has parentFilter chose: " + selectedParentFilter);
             ArrayList<String> sublist = allFilters.getSubFilter(selectedParentFilter).getSubFilterNames();
             sublist.add(0, "Please select a Filter");
@@ -131,14 +130,14 @@ public class GetFilterViewModel extends ViewModel {
             state.setSelectedSubFilter1(null);
             state.setSelectedSubFilter2(null);
             state.setSelectedSubFilter3(null);
-        } else {
-            state.setSubFilter1(defaultSubFilter);
-            state.setSubFilter2(defaultSubFilter);
-            state.setSubFilter3(defaultSubFilter);
-            state.setSelectedSubFilter1(null);
-            state.setSelectedSubFilter2(null);
-            state.setSelectedSubFilter3(null);
-        }
+//        } else {
+//            state.setSubFilter1(defaultSubFilter);
+//            state.setSubFilter2(defaultSubFilter);
+//            state.setSubFilter3(defaultSubFilter);
+//            state.setSelectedSubFilter1(null);
+//            state.setSelectedSubFilter2(null);
+//            state.setSelectedSubFilter3(null);
+//        }
     }
 
 
@@ -146,7 +145,7 @@ public class GetFilterViewModel extends ViewModel {
         if (!selectedSubFilter1.equals("Please select a Filter")) {
             String selectedSubFilter1 = this.selectedSubFilter1;
             System.out.println("ViewModel has subFilter1 chose: " + selectedSubFilter1);
-            ArrayList<String> sublist = allFilters.getSubFilter(parentFilter).getSubFilter(selectedSubFilter1).getSubFilterNames();
+            ArrayList<String> sublist = allFilters.getSubFilter(selectedParentFilter).getSubFilter(selectedSubFilter1).getSubFilterNames();
             sublist.add(0, "Please select a Filter");
             this.subFilters_2 = sublist.toArray(new String[0]);
             state.setSubFilter2(subFilters_2);
@@ -166,7 +165,7 @@ public class GetFilterViewModel extends ViewModel {
         if (!selectedSubFilter2.equals("Please select a Filter")) {
             String selectedSubFilter2 = this.selectedSubFilter2;
             System.out.println("ViewModel has subFilter2 chose: " + selectedSubFilter2);
-            ArrayList<String> sublist = allFilters.getSubFilter(parentFilter).getSubFilter(this.selectedSubFilter1).getSubFilter(selectedSubFilter2).getSubFilterNames();
+            ArrayList<String> sublist = allFilters.getSubFilter(selectedParentFilter).getSubFilter(this.selectedSubFilter1).getSubFilter(selectedSubFilter2).getSubFilterNames();
             sublist.add(0, "Please select a Filter");
             this.subFilters_3 = sublist.toArray(new String[0]);
             state.setSubFilter3(subFilters_3);
@@ -191,7 +190,7 @@ public class GetFilterViewModel extends ViewModel {
     }
 
     public void resetSelection() {
-        this.parentFilter = "Please select a Filter";
+        this.parentFilter = defaultSubFilter;
         this.subFilters_1 = defaultSubFilter;
         this.subFilters_2 = defaultSubFilter;
         this.subFilters_3 = defaultSubFilter;
