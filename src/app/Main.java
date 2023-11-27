@@ -1,9 +1,12 @@
 package app;
 
 import data_access.FileSearchDataAccessObject;
+import data_access.HistoryHistoryDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.getFilter.GetFilterViewModel;
+import interface_adapter.clear_history.ClearHistoryViewModel;
+import interface_adapter.get_history.GetHistoryViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 
@@ -30,13 +33,18 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SearchViewModel searchViewModel = new SearchViewModel();
+        ClearHistoryViewModel clearHistoryViewModel = new ClearHistoryViewModel();
+        GetHistoryViewModel getHistoryViewModel = new GetHistoryViewModel();
         ListingResultsViewModel listingResultsViewModel = new ListingResultsViewModel();
         GetFilterViewModel getFilterViewModel = new GetFilterViewModel();
 
         FileSearchDataAccessObject searchDataAccessObject;
         searchDataAccessObject = new FileSearchDataAccessObject(new CommonPlaceFactory(), "src/data_access/filters.csv", "listingJSON.json");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel,listingResultsViewModel, searchDataAccessObject);
+        HistoryHistoryDataAccessObject historyDataAccessObject;
+        historyDataAccessObject = new HistoryHistoryDataAccessObject("history.csv");
+
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel, clearHistoryViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = new ListingView(listingResultsViewModel);
