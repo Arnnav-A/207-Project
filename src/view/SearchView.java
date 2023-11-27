@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.clear.ClearController;
-import interface_adapter.clear.ClearState;
-import interface_adapter.clear.ClearViewModel;
+import interface_adapter.clear_history.ClearHistoryController;
+import interface_adapter.clear_history.ClearHistoryState;
+import interface_adapter.clear_history.ClearHistoryViewModel;
 import interface_adapter.get_history.GetHistoryController;
 import interface_adapter.get_history.GetHistoryState;
 import interface_adapter.get_history.GetHistoryViewModel;
@@ -37,7 +37,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController, SaveController saveController,
-                      GetHistoryController getHistoryController, ClearController clearController, ClearViewModel clearViewModel, GetHistoryViewModel getHistoryViewModel) {
+                      GetHistoryController getHistoryController, ClearHistoryController clearHistoryController, ClearHistoryViewModel clearHistoryViewModel, GetHistoryViewModel getHistoryViewModel) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
         this.searchViewModel.addPropertyChangeListener(this);
@@ -111,8 +111,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(clearHistory)) {
-                            clearController.execute();
-                            ClearState currentState = clearViewModel.getState();
+                            clearHistoryController.execute();
+                            ClearHistoryState currentState = clearHistoryViewModel.getState();
                             JOptionPane.showMessageDialog(clearHistory.getTopLevelAncestor(), currentState.getClearMessage());
                         }
                     }

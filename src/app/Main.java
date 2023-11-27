@@ -1,10 +1,10 @@
 package app;
 
 import data_access.FileSearchDataAccessObject;
-import data_access.HistoryDataAccessObject;
+import data_access.HistoryHistoryDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.clear.ClearViewModel;
+import interface_adapter.clear_history.ClearHistoryViewModel;
 import interface_adapter.get_history.GetHistoryViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.search.SearchViewModel;
@@ -31,17 +31,17 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SearchViewModel searchViewModel = new SearchViewModel();
-        ClearViewModel clearViewModel = new ClearViewModel();
+        ClearHistoryViewModel clearHistoryViewModel = new ClearHistoryViewModel();
         GetHistoryViewModel getHistoryViewModel = new GetHistoryViewModel();
         ListingResultsViewModel listingResultsViewModel = new ListingResultsViewModel();
 
         FileSearchDataAccessObject searchDataAccessObject;
         searchDataAccessObject = new FileSearchDataAccessObject(new CommonPlaceFactory(), "src/data_access/filters.csv", "listingJSON.json");
 
-        HistoryDataAccessObject historyDataAccessObject;
-        historyDataAccessObject = new HistoryDataAccessObject("history.csv");
+        HistoryHistoryDataAccessObject historyDataAccessObject;
+        historyDataAccessObject = new HistoryHistoryDataAccessObject("history.csv");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, clearViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, clearHistoryViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = new ListingView(listingResultsViewModel);

@@ -6,9 +6,11 @@ import use_case.get_history.GetHistoryOutputBoundary;
 import use_case.get_history.GetHistoryOutputData;
 
 public class GetHistoryPresenter implements GetHistoryOutputBoundary {
+
     private final SearchViewModel searchViewModel;
     private final GetHistoryViewModel getHistoryViewModel;
     private ViewManagerModel viewManagerModel;
+
     public GetHistoryPresenter(SearchViewModel searchViewModel, ViewManagerModel viewManagerModel, GetHistoryViewModel getHistoryViewModel) {
         this.searchViewModel = searchViewModel;
         this.viewManagerModel = viewManagerModel;

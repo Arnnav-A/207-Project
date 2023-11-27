@@ -1,6 +1,6 @@
 package use_case.clear_history;
 
 
-public interface ClearInputBoundary {
+public interface ClearHistoryInputBoundary {
     void execute();
 }

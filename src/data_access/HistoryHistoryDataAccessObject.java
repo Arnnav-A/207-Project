@@ -1,6 +1,6 @@
 package data_access;
 
-import use_case.clear_history.ClearDataAccessInterface;
+import use_case.clear_history.ClearHistoryDataAccessInterface;
 import use_case.get_history.GetHistoryDataAccessInterface;
 import use_case.save_history.SaveDataAccessInterface;
 
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HistoryDataAccessObject implements GetHistoryDataAccessInterface, ClearDataAccessInterface, SaveDataAccessInterface {
+public class HistoryHistoryDataAccessObject implements GetHistoryDataAccessInterface, ClearHistoryDataAccessInterface, SaveDataAccessInterface {
     private final File historyFileCSV;
 
-    public HistoryDataAccessObject(String historyFilePath) {
+    public HistoryHistoryDataAccessObject(String historyFilePath) {
         this.historyFileCSV = new File(historyFilePath);
     }
 

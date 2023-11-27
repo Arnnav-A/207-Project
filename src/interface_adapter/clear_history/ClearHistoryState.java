@@ -1,10 +1,10 @@
-package interface_adapter.clear;
+package interface_adapter.clear_history;
 
-public class ClearState {
+public class ClearHistoryState {
 
     private String clearMessage;
 
-    public ClearState() {
+    public ClearHistoryState() {
     }
 
     public void setClearMessage(String message) {
