@@ -99,8 +99,7 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
         address.setText("Address: " + placeInfoState.getAddress() + ".");
         coordinates.setText("Coordinates: " + placeInfoState.getCoordinates() + ".");
         tags.setText("Tags: " + placeInfoState.getTags() + ".");
-        hyperlink.setText("https://www.google.ca/maps/place/" +
-                placeInfoState.getPlaceName().replaceAll(" ", "+") + "+"
-                + placeInfoState.getAddress().replaceAll(" ", "+"));
+        hyperlink.setText("https://www.google.ca/maps/search/"
+                + placeInfoState.getAddress().replaceAll(" ", "+").replaceAll(",", ""));
     }
 }

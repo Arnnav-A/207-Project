@@ -57,6 +57,7 @@ public class ListingView extends JPanel implements ActionListener, PropertyChang
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
+                            model.clear();
                             viewManagerModel.setActiveView("search");
                             viewManagerModel.firePropertyChanged();
                         }
