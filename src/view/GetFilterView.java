@@ -330,12 +330,14 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         String subFilter1Name = state.getSelectedSubFilter1();
         String subFilter2Name = state.getSelectedSubFilter2();
         String subFilter3Name = state.getSelectedSubFilter3();
+
+        // Return full version of filter, no mixing or confusing by filters with same name.
         if (subFilter3Name != null) {
-            return subFilter3Name;
+            return String.join(".", parentFilterName, subFilter1Name, subFilter2Name, subFilter3Name);
         } else if (subFilter2Name != null) {
-            return subFilter2Name;
+            return String.join(".", parentFilterName, subFilter1Name, subFilter2Name);
         } else if (subFilter1Name != null) {
-            return subFilter1Name;
+            return String.join(".", parentFilterName, subFilter1Name);
         } else {
             return parentFilterName;
         }
