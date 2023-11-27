@@ -53,17 +53,13 @@ public class SearchUseCaseFactory {
             GetHistoryDataAccessInterface getHistoryDataAccessObject,
             ClearHistoryDataAccessInterface clearDataAccessObject) {
 
-        try {
-            SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
-            GetFilterController getFilterController = createGetFilterController(viewManagerModel, getFilterViewModel,searchDataAccessObject);
-            SaveController saveController = createSaveUseCase(saveDataAccessInterface);
-            GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryViewModel, getHistoryDataAccessObject);
-            ClearHistoryController clearHistoryController = createClearUseCase(viewManagerModel, searchViewModel, clearHistoryViewModel, clearDataAccessObject);
-            return new SearchView(searchViewModel, searchController, getFilterController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
-            
-        }
+        SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
+        GetFilterController getFilterController = createGetFilterController(viewManagerModel, getFilterViewModel, searchDataAccessObject);
+        SaveController saveController = createSaveUseCase(saveDataAccessInterface);
+        GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryViewModel, getHistoryDataAccessObject);
+        ClearHistoryController clearHistoryController = createClearUseCase(viewManagerModel, searchViewModel, clearHistoryViewModel, clearDataAccessObject);
+        return new SearchView(searchViewModel, searchController, getFilterController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel);
+    }
 
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
                                                         SearchViewModel searchViewModel,

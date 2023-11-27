@@ -40,7 +40,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     final JButton clearHistory;
 
 
-    public SearchView(SearchViewModel searchViewModel, SearchController searchController, GetFilterController getFilterController, GetFilterController getFilterController, SaveController saveController,
+    public SearchView(SearchViewModel searchViewModel, SearchController searchController, GetFilterController getFilterController, SaveController saveController,
                       GetHistoryController getHistoryController, ClearHistoryController clearHistoryController, ClearHistoryViewModel clearHistoryViewModel, GetHistoryViewModel getHistoryViewModel) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
