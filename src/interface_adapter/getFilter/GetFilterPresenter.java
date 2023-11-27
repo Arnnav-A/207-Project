@@ -28,11 +28,16 @@ public class GetFilterPresenter implements GetFilterOutputBoundary {
         getFilterState.setParentFilter(filter.getParentFilters());
         getFilterViewModel.setAllFilters(filter.getAllFilters());
         getFilterViewModel.setState(getFilterState);
-        //getFilterViewModel.setAllFilters(f);
         getFilterViewModel.firePropertyChanged();
 
         this.viewManagerModel.setActiveView(getFilterViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
-        //new GetFilterView(getFilterViewModel);
+    }
+
+    @Override
+    public void prepareFailView(String error) {
+        GetFilterState state = getFilterViewModel.getState();
+        state.setNotice(error);
+        getFilterViewModel.firePropertyChanged();
     }
 }

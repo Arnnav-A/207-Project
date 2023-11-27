@@ -1,6 +1,5 @@
 package use_case.getFilter;
 
-import entity.CommonListing;
 import use_case.search.SearchDataAccessInterface;
 import entity.CommonFilter;
 import java.util.*;

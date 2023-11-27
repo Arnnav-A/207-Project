@@ -21,7 +21,7 @@ public class GetFilterViewModel extends ViewModel {
     private String selectedSubFilter1 = "";
     private String selectedSubFilter2 = "";
     private String selectedSubFilter3 = "";
-    private String selectedParentFilter;
+    private String selectedParentFilter = "";
     private CommonFilter allFilters;
 
     public GetFilterViewModel() {
