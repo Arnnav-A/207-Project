@@ -3,19 +3,21 @@ package app;
 import entity.CommonListingFactory;
 import entity.ListingFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.clear.ClearController;
-import interface_adapter.clear.ClearPresenter;
+import interface_adapter.clear_history.ClearHistoryController;
+import interface_adapter.clear_history.ClearHistoryHistoryPresenter;
+import interface_adapter.clear_history.ClearHistoryViewModel;
 import interface_adapter.get_history.GetHistoryController;
 import interface_adapter.get_history.GetHistoryPresenter;
+import interface_adapter.get_history.GetHistoryViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
-import use_case.clear_history.ClearDataAccessInterface;
-import use_case.clear_history.ClearInputBoundary;
-import use_case.clear_history.ClearInteractor;
-import use_case.clear_history.ClearOutputBoundary;
+import use_case.clear_history.ClearHistoryDataAccessInterface;
+import use_case.clear_history.ClearHistoryInputBoundary;
+import use_case.clear_history.ClearHistoryHistoryInteractor;
+import use_case.clear_history.ClearHistoryOutputBoundary;
 import use_case.get_history.GetHistoryDataAccessInterface;
 import use_case.get_history.GetHistoryInputBoundary;
 import use_case.get_history.GetHistoryInteractor;
@@ -29,9 +31,6 @@ import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
 import view.SearchView;
 
-import javax.swing.*;
-import java.io.IOException;
-
 public class SearchUseCaseFactory {
 
     private SearchUseCaseFactory() {}
@@ -39,29 +38,25 @@ public class SearchUseCaseFactory {
     public static SearchView create(
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
+            ClearHistoryViewModel clearHistoryViewModel,
+            GetHistoryViewModel getHistoryViewModel,
             ListingResultsViewModel listingResultsViewModel,
             SearchDataAccessInterface searchDataAccessObject,
             SaveDataAccessInterface saveDataAccessInterface,
             GetHistoryDataAccessInterface getHistoryDataAccessObject,
-            ClearDataAccessInterface clearDataAccessObject) {
+            ClearHistoryDataAccessInterface clearDataAccessObject) {
 
-        try {
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
             SaveController saveController = createSaveUseCase(saveDataAccessInterface);
-            GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryDataAccessObject);
-            ClearController clearController = createClearUseCase(viewManagerModel, searchViewModel, clearDataAccessObject);
-            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearController);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryViewModel, getHistoryDataAccessObject);
+            ClearHistoryController clearHistoryController = createClearUseCase(viewManagerModel, searchViewModel, clearHistoryViewModel, clearDataAccessObject);
+            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel);
         }
-
-        return null;
-    }
 
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
                                                         SearchViewModel searchViewModel,
                                                         ListingResultsViewModel listingResultsViewModel,
-                                                        SearchDataAccessInterface searchDataAccessObject) throws IOException {
+                                                        SearchDataAccessInterface searchDataAccessObject) {
 
         SearchOutputBoundary searchOutputBoundary = new SearchPresenter(searchViewModel, listingResultsViewModel, viewManagerModel);
 
@@ -82,24 +77,26 @@ public class SearchUseCaseFactory {
 
     private static GetHistoryController createGetHistoryUseCase(ViewManagerModel viewManagerModel,
                                                                 SearchViewModel searchViewModel,
+                                                                GetHistoryViewModel getHistoryViewModel,
                                                                 GetHistoryDataAccessInterface getHistoryDataAccessObject) {
 
-        GetHistoryOutputBoundary getHistoryOutputBoundary = new GetHistoryPresenter(searchViewModel, viewManagerModel);
+        GetHistoryOutputBoundary getHistoryOutputBoundary = new GetHistoryPresenter(searchViewModel, viewManagerModel, getHistoryViewModel);
 
         GetHistoryInputBoundary getHistoryInteractor = new GetHistoryInteractor(getHistoryDataAccessObject, getHistoryOutputBoundary);
 
         return new GetHistoryController(getHistoryInteractor);
     }
 
-    private static ClearController createClearUseCase(ViewManagerModel viewManagerModel,
-                                                      SearchViewModel searchViewModel,
-                                                      ClearDataAccessInterface clearDataAccessObject) {
+    private static ClearHistoryController createClearUseCase(ViewManagerModel viewManagerModel,
+                                                             SearchViewModel searchViewModel,
+                                                             ClearHistoryViewModel clearHistoryViewModel,
+                                                             ClearHistoryDataAccessInterface clearDataAccessObject) {
 
-        ClearOutputBoundary clearOutputBoundary = new ClearPresenter(searchViewModel, viewManagerModel);
+        ClearHistoryOutputBoundary clearHistoryOutputBoundary = new ClearHistoryHistoryPresenter(searchViewModel, viewManagerModel, clearHistoryViewModel);
 
-        ClearInputBoundary clearInteractor = new ClearInteractor(clearDataAccessObject, clearOutputBoundary);
+        ClearHistoryInputBoundary clearInteractor = new ClearHistoryHistoryInteractor(clearDataAccessObject, clearHistoryOutputBoundary);
 
-        return new ClearController(clearInteractor);
+        return new ClearHistoryController(clearInteractor);
     }
 
 }
