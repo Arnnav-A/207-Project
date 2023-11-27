@@ -3,6 +3,10 @@ package app;
 import entity.CommonListingFactory;
 import entity.ListingFactory;
 import interface_adapter.ViewManagerModel;
+
+import interface_adapter.getFilter.GetFilterController;
+import interface_adapter.getFilter.GetFilterPresenter;
+import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.clear_history.ClearHistoryController;
 import interface_adapter.clear_history.ClearHistoryHistoryPresenter;
 import interface_adapter.clear_history.ClearHistoryViewModel;
@@ -14,6 +18,8 @@ import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import use_case.getFilter.GetFilterInteractor;
+import use_case.getFilter.GetFilterOutputBoundary;
 import use_case.clear_history.ClearHistoryDataAccessInterface;
 import use_case.clear_history.ClearHistoryInputBoundary;
 import use_case.clear_history.ClearHistoryHistoryInteractor;
@@ -38,6 +44,7 @@ public class SearchUseCaseFactory {
     public static SearchView create(
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
+            GetFilterViewModel getFilterViewModel,
             ClearHistoryViewModel clearHistoryViewModel,
             GetHistoryViewModel getHistoryViewModel,
             ListingResultsViewModel listingResultsViewModel,
@@ -46,11 +53,16 @@ public class SearchUseCaseFactory {
             GetHistoryDataAccessInterface getHistoryDataAccessObject,
             ClearHistoryDataAccessInterface clearDataAccessObject) {
 
+        try {
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
+            GetFilterController getFilterController = createGetFilterController(viewManagerModel, getFilterViewModel,searchDataAccessObject);
             SaveController saveController = createSaveUseCase(saveDataAccessInterface);
             GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryViewModel, getHistoryDataAccessObject);
             ClearHistoryController clearHistoryController = createClearUseCase(viewManagerModel, searchViewModel, clearHistoryViewModel, clearDataAccessObject);
-            return new SearchView(searchViewModel, searchController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel);
+            return new SearchView(searchViewModel, searchController, getFilterController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            
         }
 
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
@@ -66,6 +78,14 @@ public class SearchUseCaseFactory {
                 searchDataAccessObject, searchOutputBoundary, listingFactory);
 
         return new SearchController(searchInteractor);
+    }
+
+    private static GetFilterController createGetFilterController(ViewManagerModel viewManagerModel,
+                                                                 GetFilterViewModel getFilterViewModel,
+                                                                 SearchDataAccessInterface searchDataAccessObject) {
+        GetFilterOutputBoundary getFilterOutputBoundary = new GetFilterPresenter(getFilterViewModel, viewManagerModel);
+        GetFilterInteractor getFilterUseCaseInteractor = new GetFilterInteractor(searchDataAccessObject, getFilterOutputBoundary);
+        return new GetFilterController(getFilterUseCaseInteractor);
     }
 
     private static SaveController createSaveUseCase(SaveDataAccessInterface saveDataAccessInterface) {
@@ -98,5 +118,4 @@ public class SearchUseCaseFactory {
 
         return new ClearHistoryController(clearInteractor);
     }
-
 }

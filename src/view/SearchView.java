@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.getFilter.GetFilterController;
 import interface_adapter.clear_history.ClearHistoryController;
 import interface_adapter.clear_history.ClearHistoryState;
 import interface_adapter.clear_history.ClearHistoryViewModel;
@@ -30,16 +31,20 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JLabel errorField = new JLabel();
     // create searchController in order to pass input data.
     private final SearchController searchController;
+    // create getFilterController in order to see all filters.
+    private final GetFilterController getFilterController;
     // create button for search.
     final JButton search;
+    final JButton getFilter;
     final JButton getHistory;
     final JButton clearHistory;
 
 
-    public SearchView(SearchViewModel searchViewModel, SearchController searchController, SaveController saveController,
+    public SearchView(SearchViewModel searchViewModel, SearchController searchController, GetFilterController getFilterController, GetFilterController getFilterController, SaveController saveController,
                       GetHistoryController getHistoryController, ClearHistoryController clearHistoryController, ClearHistoryViewModel clearHistoryViewModel, GetHistoryViewModel getHistoryViewModel) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
+        this.getFilterController = getFilterController;
         this.searchViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("PlaceFinder");
@@ -54,8 +59,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         // create panel for the search, get history, and clear history buttons.
         JPanel buttons = new JPanel();
         search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);
+        getFilter = new JButton(searchViewModel.GET_FILTER_LABEL);
         getHistory = new JButton(searchViewModel.GET_HISTORY_BUTTON_LABEL);
         clearHistory = new JButton(searchViewModel.CLEAR_HISTORY_BUTTON_LABEL);
+        buttons.add(getFilter);
         buttons.add(search);
         buttons.add(getHistory);
         buttons.add(clearHistory);
@@ -101,6 +108,17 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                                 }
                                 JOptionPane.showMessageDialog(getHistory.getTopLevelAncestor(), historyString);
                             }
+                        }
+                    }
+                }
+        );
+
+        // add Action Listener to check if the event is getFilter.
+        getFilter.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(getFilter)) {
+                            getFilterController.execute();
                         }
                     }
                 }
@@ -166,18 +184,25 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     }
 
     @Override
-    public void actionPerformed(ActionEvent evt) {System.out.println("Click " + evt.getActionCommand());}
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Click " + evt.getActionCommand());
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SearchState state = (SearchState) evt.getNewValue();
         setFields(state);
+        if (state.getNotice() != null) {
+            JOptionPane.showMessageDialog(this, state.getNotice());
         }
+    }
 
-    private void setFields(SearchState state) {
+
+    private void setFields (SearchState state){
         cityNameInputField.setText(state.getCityName());
         filterInputField.setText(state.getFilter());
         errorField.setText(state.getError());
     }
+
 }
 
