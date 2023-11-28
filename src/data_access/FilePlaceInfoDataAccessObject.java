@@ -49,9 +49,7 @@ public class FilePlaceInfoDataAccessObject implements PlaceInfoDataAccessInterfa
                         String placeCity = placeProperties.getString("city");
                         return placeFactory.create(placeName, address, coordinates, tags, placeCity);
                     }
-                } catch (JSONException e) {
-                    return errorPlace;
-                }
+                } catch (JSONException ignored) {}
             }
             return errorPlace;
         } catch (IOException e) {
