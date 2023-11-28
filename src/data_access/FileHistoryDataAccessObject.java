@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HistoryHistoryDataAccessObject implements GetHistoryDataAccessInterface, ClearHistoryDataAccessInterface, SaveDataAccessInterface {
+public class FileHistoryDataAccessObject implements GetHistoryDataAccessInterface, ClearHistoryDataAccessInterface, SaveDataAccessInterface {
     private final File historyFileCSV;
 
-    public HistoryHistoryDataAccessObject(String historyFilePath) {
+    public FileHistoryDataAccessObject(String historyFilePath) {
         this.historyFileCSV = new File(historyFilePath);
     }
 

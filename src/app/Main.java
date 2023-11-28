@@ -2,7 +2,7 @@ package app;
 
 import data_access.FilePlaceInfoDataAccessObject;
 import data_access.FileSearchDataAccessObject;
-import data_access.HistoryHistoryDataAccessObject;
+import data_access.FileHistoryDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.getFilter.GetFilterViewModel;
@@ -48,8 +48,8 @@ public class Main {
         FilePlaceInfoDataAccessObject placeInfoDataAccessObject;
         placeInfoDataAccessObject = new FilePlaceInfoDataAccessObject("listingJSON.json", new CommonPlaceFactory());
 
-        HistoryHistoryDataAccessObject historyDataAccessObject;
-        historyDataAccessObject = new HistoryHistoryDataAccessObject("history.csv");
+        FileHistoryDataAccessObject historyDataAccessObject;
+        historyDataAccessObject = new FileHistoryDataAccessObject("history.csv");
 
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel, clearHistoryViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
