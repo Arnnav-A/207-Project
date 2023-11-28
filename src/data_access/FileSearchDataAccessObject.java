@@ -23,11 +23,11 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
 
     /**
      * The class to handle interactions with both the local database and the API
-     * @param commonPlaceFactory the factory for creating place entities
+     * @param placeFactory the factory for creating place entities
      * @param filtersPathCSV the file path for the filter
      * @param listingPathJSON the temporary file path where local data is stored
      */
-    public FileSearchDataAccessObject(PlaceFactory PlaceFactory, String filtersPathCSV, String listingPathJSON) {
+    public FileSearchDataAccessObject(PlaceFactory placeFactory, String filtersPathCSV, String listingPathJSON) {
 
         this.filtersFileCSV = new File(filtersPathCSV);
         this.listingFileJSON = new File(listingPathJSON);

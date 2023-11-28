@@ -48,7 +48,6 @@ public class Main {
         FilePlaceInfoDataAccessObject placeInfoDataAccessObject;
         placeInfoDataAccessObject = new FilePlaceInfoDataAccessObject("listingJSON.json", new CommonPlaceFactory());
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
         HistoryHistoryDataAccessObject historyDataAccessObject;
         historyDataAccessObject = new HistoryHistoryDataAccessObject("history.csv");
 
