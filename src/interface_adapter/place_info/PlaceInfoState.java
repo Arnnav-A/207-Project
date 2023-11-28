@@ -2,14 +2,14 @@ package interface_adapter.place_info;
 
 public class PlaceInfoState {
 
-    private String place_name;
+    private String placeName;
     private String address;
     private String coordinates;
     private String tags;
     private String city;
 
     public PlaceInfoState(PlaceInfoState copy) {
-        this.place_name = copy.place_name;
+        this.placeName = copy.placeName;
         this.address = copy.address;
         this.coordinates = copy.coordinates;
         this.tags = copy.tags;
@@ -19,7 +19,7 @@ public class PlaceInfoState {
     public PlaceInfoState() {}
 
     public String getPlaceName() {
-        return place_name;
+        return placeName;
     }
 
     public String getAddress() {
@@ -39,7 +39,7 @@ public class PlaceInfoState {
     }
 
     public void setPlaceName(String place_name) {
-        this.place_name = place_name;
+        this.placeName = place_name;
     }
 
     public void setAddress(String address) {

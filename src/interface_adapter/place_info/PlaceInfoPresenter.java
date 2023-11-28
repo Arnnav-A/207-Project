@@ -3,11 +3,6 @@ package interface_adapter.place_info;
 import interface_adapter.ViewManagerModel;
 import use_case.place_info.PlaceInfoOutputBoundary;
 import use_case.place_info.PlaceInfoOutputData;
-import view.PlaceInfoView;
-import view.ViewManager;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class PlaceInfoPresenter implements PlaceInfoOutputBoundary {
 

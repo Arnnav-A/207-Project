@@ -1,6 +1,7 @@
 package interface_adapter.search;
 
 public class SearchState {
+
     private String city_name = "";
     private String error = null;
     private String filter = "";
