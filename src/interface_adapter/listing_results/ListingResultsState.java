@@ -9,12 +9,6 @@ public class ListingResultsState {
     public String filter;
     private String placeName;
 
-    public ListingResultsState(ListingResultsState copy) {
-        placesNames = copy.placesNames;
-        city = copy.city;
-        filter = copy.filter;
-    }
-
     public ListingResultsState() {}
 
     public ArrayList<String> getPlacesNames() {
