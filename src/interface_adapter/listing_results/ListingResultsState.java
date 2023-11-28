@@ -1,18 +1,24 @@
 package interface_adapter.listing_results;
 
-import entity.Listing;
+import java.util.ArrayList;
 
 public class ListingResultsState {
-    private Listing listing;
+
+    private ArrayList<String> placesNames;
     public String city;
     public String filter;
+    private String placeName;
 
-    public ListingResultsState(ListingResultsState copy) {listing = copy.listing;}
+    public ListingResultsState(ListingResultsState copy) {
+        placesNames = copy.placesNames;
+        city = copy.city;
+        filter = copy.filter;
+    }
 
     public ListingResultsState() {}
 
-    public Listing getListing() {
-        return listing;
+    public ArrayList<String> getPlacesNames() {
+        return placesNames;
     }
 
     public String getCity() {
@@ -23,8 +29,12 @@ public class ListingResultsState {
         return filter;
     }
 
-    public void setListing(Listing listing) {
-        this.listing = listing;
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public void setPlacesNames(ArrayList<String> placesNames) {
+        this.placesNames = placesNames;
     }
 
     public void setCity(String city) {
@@ -33,5 +43,9 @@ public class ListingResultsState {
 
     public void setFilter(String filter) {
         this.filter = filter;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 }

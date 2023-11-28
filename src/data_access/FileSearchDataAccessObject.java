@@ -27,10 +27,11 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
      * @param filtersPathCSV the file path for the filter
      * @param listingPathJSON the temporary file path where local data is stored
      */
-    public FileSearchDataAccessObject(PlaceFactory commonPlaceFactory, String filtersPathCSV, String listingPathJSON) {
+    public FileSearchDataAccessObject(PlaceFactory PlaceFactory, String filtersPathCSV, String listingPathJSON) {
+
         this.filtersFileCSV = new File(filtersPathCSV);
         this.listingFileJSON = new File(listingPathJSON);
-        this.placeFactory = commonPlaceFactory;
+        this.placeFactory = placeFactory;
     }
 
     /**
