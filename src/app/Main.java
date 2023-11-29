@@ -1,8 +1,9 @@
 package app;
 
 import data_access.FilePlaceInfoDataAccessObject;
+import data_access.FileSavePlacesDataAccessInterface;
 import data_access.FileSearchDataAccessObject;
-import data_access.HistoryHistoryDataAccessObject;
+import data_access.FileHistoryDataAccessObject;
 import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.getFilter.GetFilterViewModel;
@@ -48,8 +49,11 @@ public class Main {
         FilePlaceInfoDataAccessObject placeInfoDataAccessObject;
         placeInfoDataAccessObject = new FilePlaceInfoDataAccessObject("listingJSON.json", new CommonPlaceFactory());
 
-        HistoryHistoryDataAccessObject historyDataAccessObject;
-        historyDataAccessObject = new HistoryHistoryDataAccessObject("history.csv");
+        FileSavePlacesDataAccessInterface savePlacesDataAccessObject;
+        savePlacesDataAccessObject = new FileSavePlacesDataAccessInterface("listingJSON.json", "savedCSV.csv", new CommonPlaceFactory());
+
+        FileHistoryDataAccessObject historyDataAccessObject;
+        historyDataAccessObject = new FileHistoryDataAccessObject("history.csv");
 
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel, clearHistoryViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
         views.add(searchView, searchView.viewName);
@@ -57,7 +61,7 @@ public class Main {
         ListingView listingView = ListingUseCaseFactory.create(listingResultsViewModel, viewManagerModel, placeInfoDataAccessObject, placeInfoViewModel);
         views.add(listingView, listingView.viewName);
 
-        PlaceInfoView placeInfoView = new PlaceInfoView(placeInfoViewModel, viewManagerModel);
+        PlaceInfoView placeInfoView = PlaceInfoUseCaseFactory.create(placeInfoViewModel, viewManagerModel, savePlacesDataAccessObject);
         views.add(placeInfoView, placeInfoView.viewname);
 
         GetFilterView getFilterView = new GetFilterView(getFilterViewModel, searchViewModel, viewManagerModel);

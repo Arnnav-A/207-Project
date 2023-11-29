@@ -3,6 +3,7 @@ package view;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.place_info.PlaceInfoState;
 import interface_adapter.place_info.PlaceInfoViewModel;
+import interface_adapter.save_places.SavePlacesController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,8 +31,9 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
     JLabel hyperlink;
 
     JButton back;
+    JButton save;
 
-    public PlaceInfoView(PlaceInfoViewModel placeInfoViewModel, ViewManagerModel viewManagerModel) {
+    public PlaceInfoView(PlaceInfoViewModel placeInfoViewModel, ViewManagerModel viewManagerModel, SavePlacesController savePlacesController) {
         this.placeInfoViewModel = placeInfoViewModel;
         this.viewManagerModel = viewManagerModel;
         this.placeInfoViewModel.addPropertyChangeListener(this);
@@ -49,6 +51,8 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
         JPanel buttons = new JPanel();
         back = new JButton(placeInfoViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
+        save = new JButton(placeInfoViewModel.SAVE_BUTTON_LABEL);
+        buttons.add(save);
 
         hyperlink.addMouseListener(
                 new MouseAdapter() {
@@ -70,6 +74,18 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
                         if (evt.getSource().equals(back)) {
                             viewManagerModel.setActiveView("listing");
                             viewManagerModel.firePropertyChanged();
+                        }
+                    }
+                }
+        );
+
+        save.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(save)) {
+                            savePlacesController.execute(placeInfoViewModel.getState().getPlaceName());
+                            JOptionPane.showMessageDialog(save.getTopLevelAncestor(), placeInfoViewModel.SAVE_MESSAGE);
                         }
                     }
                 }

@@ -8,6 +8,8 @@ import java.beans.PropertyChangeSupport;
 public class PlaceInfoViewModel extends ViewModel {
 
     public final String BACK_BUTTON_LABEL = "Back";
+    public final String SAVE_BUTTON_LABEL = "Save as Favorite";
+    public final String SAVE_MESSAGE = "Place Saved";
     private PlaceInfoState state = new PlaceInfoState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
