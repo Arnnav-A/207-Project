@@ -2,14 +2,14 @@ package use_case.save_places;
 
 public class SavePlacesInteractor implements SavePlacesInputBoundary {
 
-    final SavePlacesDataAccessObject savePlacesDataAccessObject;
+    final SavePlacesDataAccessInterface savePlacesDataAccessInterface;
 
-    public SavePlacesInteractor(SavePlacesDataAccessObject savePlacesDataAccessObject) {
-        this.savePlacesDataAccessObject = savePlacesDataAccessObject;
+    public SavePlacesInteractor(SavePlacesDataAccessInterface savePlacesDataAccessInterface) {
+        this.savePlacesDataAccessInterface = savePlacesDataAccessInterface;
     }
 
     @Override
     public void execute(SavePlacesInputData savePlacesInputData) {
-        savePlacesDataAccessObject.save(savePlacesInputData.getName());
+        savePlacesDataAccessInterface.save(savePlacesInputData.getName());
     }
 }

@@ -1,6 +1,6 @@
 package app;
 
-import data_access.FileSavePlacesDataAccessObject;
+import data_access.FileSavePlacesDataAccessInterface;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.place_info.PlaceInfoViewModel;
 import interface_adapter.save_places.SavePlacesController;
@@ -14,13 +14,13 @@ public class PlaceInfoUseCaseFactory {
 
     public static PlaceInfoView create(PlaceInfoViewModel placeInfoViewModel,
                                        ViewManagerModel viewManagerModel,
-                                       FileSavePlacesDataAccessObject savePlacesDataAccessObject) {
+                                       FileSavePlacesDataAccessInterface savePlacesDataAccessObject) {
         SavePlacesController savePlacesController = createSavePlacesUseCase(savePlacesDataAccessObject);
         return new PlaceInfoView(placeInfoViewModel, viewManagerModel, savePlacesController);
 
     }
 
-    private static SavePlacesController createSavePlacesUseCase(FileSavePlacesDataAccessObject savePlacesDataAccessObject) {
+    private static SavePlacesController createSavePlacesUseCase(FileSavePlacesDataAccessInterface savePlacesDataAccessObject) {
         SavePlacesInputBoundary savePlaceInteractor = new SavePlacesInteractor(savePlacesDataAccessObject);
         return new SavePlacesController(savePlaceInteractor);
     }

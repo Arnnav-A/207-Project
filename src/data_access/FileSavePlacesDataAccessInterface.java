@@ -2,13 +2,13 @@ package data_access;
 
 import entity.Place;
 import entity.PlaceFactory;
-import use_case.save_places.SavePlacesDataAccessObject;
+import use_case.save_places.SavePlacesDataAccessInterface;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileSavePlacesDataAccessObject implements SavePlacesDataAccessObject {
+public class FileSavePlacesDataAccessInterface implements SavePlacesDataAccessInterface {
 
     private final String listingFileJSON;
 
@@ -16,7 +16,7 @@ public class FileSavePlacesDataAccessObject implements SavePlacesDataAccessObjec
     private final PlaceFactory placeFactory;
 
 
-    public FileSavePlacesDataAccessObject(String listingFileJSON, String savedPlacesFileCSV, PlaceFactory placeFactory) {
+    public FileSavePlacesDataAccessInterface(String listingFileJSON, String savedPlacesFileCSV, PlaceFactory placeFactory) {
         this.listingFileJSON = listingFileJSON;
         this.savedPlacesFileCSV = new File(savedPlacesFileCSV);
         this.placeFactory = placeFactory;
