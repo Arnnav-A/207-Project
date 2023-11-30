@@ -9,6 +9,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.clear_history.ClearHistoryViewModel;
 import interface_adapter.get_history.GetHistoryViewModel;
+import interface_adapter.get_saved_places.GetSavedViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.place_info.PlaceInfoViewModel;
 import interface_adapter.search.SearchViewModel;
@@ -42,6 +43,7 @@ public class Main {
         ListingResultsViewModel listingResultsViewModel = new ListingResultsViewModel();
         PlaceInfoViewModel placeInfoViewModel = new PlaceInfoViewModel();
         GetFilterViewModel getFilterViewModel = new GetFilterViewModel();
+        GetSavedViewModel getSavedViewModel = new GetSavedViewModel();
 
         FileSearchDataAccessObject searchDataAccessObject;
         searchDataAccessObject = new FileSearchDataAccessObject(new CommonPlaceFactory(), "src/data_access/filters.csv", "listingJSON.json");
@@ -55,7 +57,7 @@ public class Main {
         FileHistoryDataAccessObject historyDataAccessObject;
         historyDataAccessObject = new FileHistoryDataAccessObject("history.csv");
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel, clearHistoryViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, getFilterViewModel, clearHistoryViewModel, getHistoryViewModel, listingResultsViewModel, searchDataAccessObject, historyDataAccessObject, historyDataAccessObject, historyDataAccessObject, getSavedViewModel, savePlacesDataAccessObject);
         views.add(searchView, searchView.viewName);
 
         ListingView listingView = ListingUseCaseFactory.create(listingResultsViewModel, viewManagerModel, placeInfoDataAccessObject, placeInfoViewModel);

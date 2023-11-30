@@ -2,13 +2,17 @@ package data_access;
 
 import entity.Place;
 import entity.PlaceFactory;
+import use_case.get_saved_places.GetSavedDataAccessInterface;
 import use_case.save_places.SavePlacesDataAccessInterface;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class FileSavePlacesDataAccessInterface implements SavePlacesDataAccessInterface {
+public class FileSavePlacesDataAccessInterface implements SavePlacesDataAccessInterface, GetSavedDataAccessInterface {
 
     private final String listingFileJSON;
 
@@ -42,6 +46,21 @@ public class FileSavePlacesDataAccessInterface implements SavePlacesDataAccessIn
             filewriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<String> getPlaces() {
+        ArrayList<String> places = new ArrayList<>();
+        try {
+            Scanner reader = new Scanner(savedPlacesFileCSV);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                String[] placeLine = data.split(",");
+                places.add(placeLine[0]);
+            }
+            return places;
+        } catch (FileNotFoundException e) {
+            return places;
         }
     }
 }
