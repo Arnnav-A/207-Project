@@ -13,6 +13,9 @@ import interface_adapter.clear_history.ClearHistoryViewModel;
 import interface_adapter.get_history.GetHistoryController;
 import interface_adapter.get_history.GetHistoryPresenter;
 import interface_adapter.get_history.GetHistoryViewModel;
+import interface_adapter.get_saved_places.GetSavedController;
+import interface_adapter.get_saved_places.GetSavedPresenter;
+import interface_adapter.get_saved_places.GetSavedViewModel;
 import interface_adapter.listing_results.ListingResultsViewModel;
 import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
@@ -28,6 +31,10 @@ import use_case.get_history.GetHistoryDataAccessInterface;
 import use_case.get_history.GetHistoryInputBoundary;
 import use_case.get_history.GetHistoryInteractor;
 import use_case.get_history.GetHistoryOutputBoundary;
+import use_case.get_saved_places.GetSavedDataAccessInterface;
+import use_case.get_saved_places.GetSavedInputBoundary;
+import use_case.get_saved_places.GetSavedInteractor;
+import use_case.get_saved_places.GetSavedOutputBoundary;
 import use_case.save_history.SaveDataAccessInterface;
 import use_case.save_history.SaveInputBoundary;
 import use_case.save_history.SaveInteractor;
@@ -51,14 +58,17 @@ public class SearchUseCaseFactory {
             SearchDataAccessInterface searchDataAccessObject,
             SaveDataAccessInterface saveDataAccessInterface,
             GetHistoryDataAccessInterface getHistoryDataAccessObject,
-            ClearHistoryDataAccessInterface clearDataAccessObject) {
+            ClearHistoryDataAccessInterface clearDataAccessObject,
+            GetSavedViewModel getSavedViewModel,
+            GetSavedDataAccessInterface getSavedDataAccessObject) {
 
         SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, listingResultsViewModel, searchDataAccessObject);
         GetFilterController getFilterController = createGetFilterController(viewManagerModel, getFilterViewModel, searchDataAccessObject);
         SaveController saveController = createSaveUseCase(saveDataAccessInterface);
         GetHistoryController getHistoryController = createGetHistoryUseCase(viewManagerModel, searchViewModel, getHistoryViewModel, getHistoryDataAccessObject);
         ClearHistoryController clearHistoryController = createClearUseCase(viewManagerModel, searchViewModel, clearHistoryViewModel, clearDataAccessObject);
-        return new SearchView(searchViewModel, searchController, getFilterController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel);
+        GetSavedController getSavedController = createGetSavedUseCase(viewManagerModel, searchViewModel, getSavedViewModel, getSavedDataAccessObject);
+        return new SearchView(searchViewModel, searchController, getFilterController, saveController, getHistoryController, clearHistoryController, clearHistoryViewModel, getHistoryViewModel, getSavedController, getSavedViewModel);
     }
 
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
@@ -113,5 +123,13 @@ public class SearchUseCaseFactory {
         ClearHistoryInputBoundary clearInteractor = new ClearHistoryHistoryInteractor(clearDataAccessObject, clearHistoryOutputBoundary);
 
         return new ClearHistoryController(clearInteractor);
+    }
+
+    private static GetSavedController createGetSavedUseCase(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, GetSavedViewModel getSavedViewModel, GetSavedDataAccessInterface getSavedDataAccessObject) {
+        GetSavedOutputBoundary getSavedOutputBoundary = new GetSavedPresenter(searchViewModel, viewManagerModel, getSavedViewModel);
+
+        GetSavedInputBoundary getSavedInteractor = new GetSavedInteractor(getSavedDataAccessObject, getSavedOutputBoundary);
+
+        return new GetSavedController(getSavedInteractor);
     }
 }

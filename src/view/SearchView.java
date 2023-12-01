@@ -7,6 +7,9 @@ import interface_adapter.clear_history.ClearHistoryViewModel;
 import interface_adapter.get_history.GetHistoryController;
 import interface_adapter.get_history.GetHistoryState;
 import interface_adapter.get_history.GetHistoryViewModel;
+import interface_adapter.get_saved_places.GetSavedController;
+import interface_adapter.get_saved_places.GetSavedState;
+import interface_adapter.get_saved_places.GetSavedViewModel;
 import interface_adapter.save_history.SaveController;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
@@ -38,10 +41,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     final JButton getFilter;
     final JButton getHistory;
     final JButton clearHistory;
+    final JButton getPlaces;
 
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController, GetFilterController getFilterController, SaveController saveController,
-                      GetHistoryController getHistoryController, ClearHistoryController clearHistoryController, ClearHistoryViewModel clearHistoryViewModel, GetHistoryViewModel getHistoryViewModel) {
+                      GetHistoryController getHistoryController, ClearHistoryController clearHistoryController, ClearHistoryViewModel clearHistoryViewModel, GetHistoryViewModel getHistoryViewModel,
+                      GetSavedController getSavedController, GetSavedViewModel getSavedViewModel) {
         this.searchViewModel = searchViewModel;
         this.searchController = searchController;
         this.getFilterController = getFilterController;
@@ -63,7 +68,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         getFilter = new JButton(searchViewModel.GET_FILTER_LABEL);
         getHistory = new JButton(searchViewModel.GET_HISTORY_BUTTON_LABEL);
         clearHistory = new JButton(searchViewModel.CLEAR_HISTORY_BUTTON_LABEL);
+        getPlaces = new JButton(searchViewModel.GET_SAVED_PLACES_BUTTON_LABEL);
+
         buttons.add(getFilter);
+        buttons.add(getPlaces);
         buttons.add(search);
         buttons.add(getHistory);
         buttons.add(clearHistory);
@@ -138,6 +146,28 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
+        getPlaces.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(getPlaces)) {
+                            getSavedController.execute();
+                            GetSavedState state = getSavedViewModel.getState();
+                            ArrayList<String> places = state.getPlaces();
+                            String message = "No history found.";
+                            if (places.isEmpty()) {
+                                JOptionPane.showMessageDialog(getPlaces.getTopLevelAncestor(), message);
+                            } else {
+                                StringBuilder placesString = new StringBuilder();
+                                for (String place : places) {
+                                    placesString.append(place).append("\n");
+                                }
+                                JOptionPane.showMessageDialog(getPlaces.getTopLevelAncestor(), placesString);
+                            }
+                        }
+                    }
+                }
+        );
 
         // add Key Listener to get what was entered in the input field.
         cityNameInputField.addKeyListener(
