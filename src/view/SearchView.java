@@ -169,7 +169,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-
         // add Key Listener to get what was entered in the input field.
         cityNameInputField.addKeyListener(
                 new KeyListener() {

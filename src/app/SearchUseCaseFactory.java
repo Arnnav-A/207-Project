@@ -130,6 +130,6 @@ public class SearchUseCaseFactory {
 
         GetSavedInputBoundary getSavedInteractor = new GetSavedInteractor(getSavedDataAccessObject, getSavedOutputBoundary);
 
-        return  new GetSavedController(getSavedInteractor);
+        return new GetSavedController(getSavedInteractor);
     }
 }
