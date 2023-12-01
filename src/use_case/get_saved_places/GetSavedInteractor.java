@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class GetSavedInteractor implements GetSavedInputBoundary{
 
-    final GetSavedDataAccessInterface userDataAccessObject;
-    final GetSavedOutputBoundary userPresenter;
+    final GetSavedDataAccessInterface getSavedDataAccessObject;
+    final GetSavedOutputBoundary getSavedPresenter;
 
-    public GetSavedInteractor(GetSavedDataAccessInterface userDataAccessObject, GetSavedOutputBoundary userPresenter) {
-        this.userDataAccessObject = userDataAccessObject;
-        this.userPresenter = userPresenter;
+    public GetSavedInteractor(GetSavedDataAccessInterface getSavedDataAccessObject, GetSavedOutputBoundary getSavedPresenter) {
+        this.getSavedDataAccessObject = getSavedDataAccessObject;
+        this.getSavedPresenter = getSavedPresenter;
     }
 
     @Override
     public void execute() {
-        ArrayList<String> places = userDataAccessObject.getPlaces();
+        ArrayList<String> places = getSavedDataAccessObject.getPlaces();
         GetSavedOutputData getSavedOutputData = new GetSavedOutputData(places);
-        userPresenter.prepareView(getSavedOutputData);
+        getSavedPresenter.prepareView(getSavedOutputData);
     }
 }
