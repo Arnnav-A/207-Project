@@ -37,9 +37,9 @@ public class FilePlaceInfoDataAccessObject implements PlaceInfoDataAccessInterfa
             for (Object place: listingJSON) {
                 try {
                     JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
-                    String placeName = placeProperties.getString("name");
+                    String placeName = placeProperties.getString("address_line1");
                     if (Objects.equals(placeName, name)) {
-                        String address = placeProperties.getString("formatted");
+                        String address = placeProperties.getString("address_line2");
                         Double latitude = placeProperties.getDouble("lat");
                         Double longitude = placeProperties.getDouble("lon");
                         ArrayList<Double> coordinates = new ArrayList<>();
