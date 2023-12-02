@@ -20,14 +20,21 @@ import view.PlaceInfoView;
 import view.SearchView;
 import view.ViewManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) {
         JFrame application = new JFrame("Place Finder");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        application.setMinimumSize(new Dimension(650,350));
+        try {
+            application.setIconImage(ImageIO.read(new File("src/assets/icon.jpeg")));
+        } catch (IOException ignored) {}
 
         CardLayout cardLayout = new CardLayout();
 

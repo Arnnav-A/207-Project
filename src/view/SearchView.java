@@ -15,21 +15,25 @@ import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search";
     private final SearchViewModel searchViewModel;
     // create InputField for typing the city name and filter.
-    final JTextField cityNameInputField = new JTextField(15);
+    final JTextField cityNameInputField = new JTextField(24);
     final JTextField filterInputField = new JTextField(15);
     private final JLabel errorField = new JLabel();
     // create searchController in order to pass input data.
@@ -42,6 +46,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     final JButton getHistory;
     final JButton clearHistory;
     final JButton getPlaces;
+    private final JLabel picLabel = new JLabel();
 
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController, GetFilterController getFilterController, SaveController saveController,
@@ -52,11 +57,19 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         this.getFilterController = getFilterController;
         this.searchViewModel.addPropertyChangeListener(this);
 
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/assets/title.png"));
+            ImageIcon image = new ImageIcon(myPicture.getScaledInstance(288,96,Image.SCALE_DEFAULT));
+            picLabel.setIcon(image);
+        } catch (IOException ignored) {}
+        picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        picLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+
         JLabel title = new JLabel(searchViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setAlignmentY(Component.CENTER_ALIGNMENT);
-        // create labels for the city name and filter.
 
+        // create labels for the city name and filter.
         LabelTextPanel cityNameInfo = new LabelTextPanel(
                 new JLabel(searchViewModel.CITY_NAME_LABEL), cityNameInputField);
         LabelTextPanel filterInfo = new LabelTextPanel(
@@ -70,9 +83,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         clearHistory = new JButton(searchViewModel.CLEAR_HISTORY_BUTTON_LABEL);
         getPlaces = new JButton(searchViewModel.GET_SAVED_PLACES_BUTTON_LABEL);
 
-        buttons.add(getFilter);
+        JPanel searchButton = new JPanel();
+        searchButton.add(search);
+
+        filterInfo.add(getFilter);
+
         buttons.add(getPlaces);
-        buttons.add(search);
         buttons.add(getHistory);
         buttons.add(clearHistory);
 
@@ -207,10 +223,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void keyReleased(KeyEvent e) {
                     }
                 });
-        this.add(title);
+        this.add(picLabel);
         this.add(cityNameInfo);
         this.add(filterInfo);
         this.add(errorField);
+        this.add(searchButton);
         this.add(buttons);
     }
 
