@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.place_info.PlaceInfoState;
 import interface_adapter.place_info.PlaceInfoViewModel;
 import interface_adapter.save_places.SavePlacesController;
+import okhttp3.Address;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,12 +24,12 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
     private final PlaceInfoViewModel placeInfoViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    JLabel place_name;
+    JLabel placeName;
     JLabel address;
     JLabel coordinates;
-    JLabel tags;
     JLabel city;
-    JLabel hyperlink;
+    String hyperlink;
+    JLabel linkName;
 
     JButton back;
     JButton save;
@@ -38,15 +39,17 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
         this.viewManagerModel = viewManagerModel;
         this.placeInfoViewModel.addPropertyChangeListener(this);
 
-        place_name = new JLabel();
+        placeName = new JLabel();
         address = new JLabel();
         coordinates = new JLabel();
-        tags = new JLabel();
         city = new JLabel();
+        placeName.setAlignmentY(CENTER_ALIGNMENT);
+        address.setAlignmentY(CENTER_ALIGNMENT);
 
-        hyperlink = new JLabel();
-        hyperlink.setForeground(Color.BLUE.darker());
-        hyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        linkName = new JLabel();
+        linkName.setText("Find on Google Maps");
+        linkName.setForeground(Color.BLUE.darker());
+        linkName.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JPanel buttons = new JPanel();
         back = new JButton(placeInfoViewModel.BACK_BUTTON_LABEL);
@@ -54,13 +57,13 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
         save = new JButton(placeInfoViewModel.SAVE_BUTTON_LABEL);
         buttons.add(save);
 
-        hyperlink.addMouseListener(
+        linkName.addMouseListener(
                 new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     try {
-                        Desktop.getDesktop().browse(new URI(hyperlink.getText()));
+                        Desktop.getDesktop().browse(new URI(hyperlink));
                     } catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                     }
@@ -93,12 +96,11 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(place_name);
+        this.add(placeName);
         this.add(city);
         this.add(address);
         this.add(coordinates);
-        this.add(tags);
-        this.add(hyperlink);
+        this.add(linkName);
         this.add(buttons);
     }
 
@@ -110,12 +112,11 @@ public class PlaceInfoView extends JPanel implements  ActionListener, PropertyCh
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         PlaceInfoState placeInfoState = (PlaceInfoState) evt.getNewValue();
-        place_name.setText("Name: " + placeInfoState.getPlaceName() + ".");
+        placeName.setText("Name: " + placeInfoState.getPlaceName() + ".");
         city.setText("City: " + placeInfoState.getCity() + ".");
         address.setText("Address: " + placeInfoState.getAddress() + ".");
         coordinates.setText("Coordinates: " + placeInfoState.getCoordinates() + ".");
-        tags.setText("Tags: " + placeInfoState.getTags() + ".");
-        hyperlink.setText("https://www.google.ca/maps/search/"
-                + placeInfoState.getAddress().replaceAll(" ", "+").replaceAll(",", ""));
+        hyperlink = "https://www.google.ca/maps/search/"
+                + placeInfoState.getPlaceName() + "+" + placeInfoState.getAddress().replaceAll(" ", "+").replaceAll(",", "");
     }
 }
