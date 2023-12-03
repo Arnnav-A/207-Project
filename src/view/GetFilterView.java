@@ -51,7 +51,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         buttons.add(reset);
         buttons.add(apply);
 
-        apply.addActionListener(  // Add actionListener to APPLY button
+        apply.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(apply)) {
@@ -74,7 +74,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                 }
         );
 
-        reset.addActionListener(  // Add actionListener to RESET button
+        reset.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(reset)) {
@@ -94,15 +94,12 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                 }
         );
 
-        parentFilter.addItemListener(  // Add actionListener to parentFilter ComboBox
+        parentFilter.addItemListener(
                 new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
-                        // Ensure the event source is our JComboBox
                         if (e.getSource() == parentFilter) {
-                            // Check if the item state changed to SELECTED
                             if (e.getStateChange() == ItemEvent.SELECTED) {
-                                // Retrieve the selected item
                                 GetFilterState state = getFilterViewModel.getState();
                                 String selectedItem = (String) parentFilter.getSelectedItem();
                                 assert selectedItem != null;
@@ -114,7 +111,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                                     getFilterViewModel.parentFilterSelectionChanged();
                                     getFilterViewModel.firePropertyChanged();
                                 } else {
-                                    // Update all subFilters options
+
                                     state.setSelectedParentFilter(null);
                                     state.setSubFilter1(new String[]{"Please select a Filter"});
                                     state.setSubFilter2(new String[]{"Please select a Filter"});
@@ -129,15 +126,12 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                     }
                 });
 
-        subFilter_1.addItemListener(  // Add actionListener to subFilter1 ComboBox
+        subFilter_1.addItemListener(
                 new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
-                        // Ensure the event source is our JComboBox
                         if (e.getSource() == subFilter_1) {
-                            // Check if the item state changed to SELECTED
                             if (e.getStateChange() == ItemEvent.SELECTED) {
-                                // Retrieve the selected item
                                 String selectedItem = (String) subFilter_1.getSelectedItem();
                                 GetFilterState state = getFilterViewModel.getState();
                                 assert selectedItem != null;
@@ -149,8 +143,9 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                                     getFilterViewModel.subFilter1SelectionChanged();
                                     getFilterViewModel.firePropertyChanged();
                                 } else {
-                                    // Update subFilter 2 & 3 if 1 is null.
+
                                     state.setSelectedSubFilter1(null);
+
                                     state.setSubFilter2(new String[]{"Please select a Filter"});
                                     state.setSubFilter3(new String[]{"Please select a Filter"});
                                     getFilterViewModel.setState(state);
@@ -162,15 +157,12 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                     }
                 });
 
-        subFilter_2.addItemListener(  // Add actionListener to subFilter2 ComboBox
+        subFilter_2.addItemListener(
                 new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
-                        // Ensure the event source is our JComboBox
                         if (e.getSource() == subFilter_2) {
-                            // Check if the item state changed to SELECTED
                             if (e.getStateChange() == ItemEvent.SELECTED) {
-                                // Retrieve the selected item
                                 GetFilterState state = getFilterViewModel.getState();
                                 String selectedItem = (String) subFilter_2.getSelectedItem();
                                 assert selectedItem != null;
@@ -182,7 +174,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                                     getFilterViewModel.subFilter2SelectionChanged();
                                     getFilterViewModel.firePropertyChanged();
                                 } else {
-                                    // Update subFilter3 if 2 is null.
+
                                     state.setSelectedSubFilter2(null);
                                     state.setSubFilter3(new String[]{"Please select a Filter"});
                                     getFilterViewModel.setState(state);
@@ -193,15 +185,12 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                     }
                 });
 
-        subFilter_3.addItemListener(  // Add actionListener to subFilter3 ComboBox
+        subFilter_3.addItemListener(
                 new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
-                        // Ensure the event source is our JComboBox
                         if (e.getSource() == subFilter_3) {
-                            // Check if the item state changed to SELECTED
                             if (e.getStateChange() == ItemEvent.SELECTED) {
-                                // Retrieve the selected item
                                 String selectedItem = (String) subFilter_3.getSelectedItem();
                                 assert selectedItem != null;
                                 if (!selectedItem.equals("Please select a Filter")) {
@@ -236,67 +225,67 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         if (getFilterState.getNotice() != null) {
             JOptionPane.showMessageDialog(this, getFilterState.getNotice());
             getFilterState.setNotice(null);
-        } else if (modelParentFilter.getSize() == 0) {  // Initialize the values in ComboBox, add items for options
+        } else if (modelParentFilter.getSize() == 0) {
             updateParentOptions(getFilterState);
             updateSubFilter1Options(getFilterState);
             updateSubFilter2Options(getFilterState);
             updateSubFilter3Options(getFilterState);
-        } else {                                 // User did some operation. Check what changed.
+        } else {
             checkChanged(getFilterState);
         }
     }
 
 
     private void checkChanged(GetFilterState state) {
-        if (state.getParentFilter().length > 1) {  // User click on reset. Reset to original view.
+        if (state.getParentFilter().length > 1) {
             for (int i = 0; i < state.getParentFilter().length; i++) {
                 if (!state.getParentFilter()[i].equals(modelParentFilter.getElementAt(i))) {
                     modelParentFilter.removeAllElements();
                     updateParentOptions(state);
                 }
             }
-        } else {                                  // User changed choice of parentFilter. Restore subFilters.
+        } else {
             modelSubFilter_1.removeAllElements();
             updateSubFilter1Options(state);
         }
-        if (state.getSubFilter_1().length > 1) {  // User chose a specific parentFilter. Update corresponding subFilters.
+        if (state.getSubFilter_1().length > 1) {
             for (int i = 0; i < state.getSubFilter_1().length; i++) {
                 if (!state.getSubFilter_1()[i].equals(modelSubFilter_1.getElementAt(i))) {
                     modelSubFilter_1.removeAllElements();
                     updateSubFilter1Options(state);
                 }
             }
-        } else {                                  // User changed choice of parentFilter. Restore subFilters.
+        } else {
             modelSubFilter_1.removeAllElements();
             updateSubFilter1Options(state);
         }
 
-        if (state.getSubFilter_2().length > 1) {  // User chose a specific subFilter1. Update corresponding subFilters.
+        if (state.getSubFilter_2().length > 1) {
             for (int i = 0; i < state.getSubFilter_2().length; i++) {
                 if (!state.getSubFilter_2()[i].equals(modelSubFilter_2.getElementAt(i))) {
                     modelSubFilter_2.removeAllElements();
                     updateSubFilter2Options(state);
                 }
             }
-        } else {                                  // User changed choice of subFilter1. Restore subFilters.
+        } else {
             modelSubFilter_2.removeAllElements();
             updateSubFilter2Options(state);
         }
 
-        if (state.getSubFilter_3().length > 1) {  // User chose a specific subFilter2. Update corresponding subFilters.
+        if (state.getSubFilter_3().length > 1) {
             for (int i = 0; i < state.getSubFilter_3().length; i++) {
                 if (!state.getSubFilter_3()[i].equals(modelSubFilter_3.getElementAt(i))) {
                     modelSubFilter_3.removeAllElements();
                     updateSubFilter3Options(state);
                 }
             }
-        } else {                                  // User changed choice of subFilter2. Restore subFilters.
+        } else {
             modelSubFilter_3.removeAllElements();
             updateSubFilter3Options(state);
         }
     }
 
-    private void updateParentOptions(GetFilterState state) {  // Add new items in model for options displayed.
+    private void updateParentOptions(GetFilterState state) {
         for (int i = 0; i < state.getParentFilter().length; i++) {
             modelParentFilter.addElement(state.getParentFilter()[i]);
         }
@@ -323,14 +312,13 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         }
     }
 
-    private String filterOutput(GetFilterState state) {  // Asserting the lowest level of filters chose by user. Return it to SearchView.
+    private String filterOutput(GetFilterState state) {
         //String parentFilterName = getFilterViewModel.getSelectedParentFilter();
         String parentFilterName = state.getSelectedParentFilter();
         String subFilter1Name = state.getSelectedSubFilter1();
         String subFilter2Name = state.getSelectedSubFilter2();
         String subFilter3Name = state.getSelectedSubFilter3();
 
-        // Return full version of filter, no mixing or confusing by filters with same name.
         if (subFilter3Name != null) {
             return String.join(".", parentFilterName, subFilter1Name, subFilter2Name, subFilter3Name);
         } else if (subFilter2Name != null) {

@@ -30,24 +30,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
+
     public final String viewName = "search";
     private final SearchViewModel searchViewModel;
-    // create InputField for typing the city name and filter.
     final JTextField cityNameInputField = new JTextField(24);
     final JTextField filterInputField = new JTextField(15);
     private final JLabel errorField = new JLabel();
-    // create searchController in order to pass input data.
     private final SearchController searchController;
-    // create getFilterController in order to see all filters.
     private final GetFilterController getFilterController;
-    // create button for search.
     final JButton search;
     final JButton getFilter;
     final JButton getHistory;
     final JButton clearHistory;
     final JButton getPlaces;
     private final JLabel picLabel = new JLabel();
-
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController, GetFilterController getFilterController, SaveController saveController,
                       GetHistoryController getHistoryController, ClearHistoryController clearHistoryController, ClearHistoryViewModel clearHistoryViewModel, GetHistoryViewModel getHistoryViewModel,
@@ -69,13 +65,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-        // create labels for the city name and filter.
         LabelTextPanel cityNameInfo = new LabelTextPanel(
                 new JLabel(searchViewModel.CITY_NAME_LABEL), cityNameInputField);
         LabelTextPanel filterInfo = new LabelTextPanel(
 
         new JLabel(searchViewModel.FILTER_LABEL), filterInputField);
-        // create panel for the filters, search, get history, and clear history buttons.
         JPanel buttons = new JPanel();
         search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);
         getFilter = new JButton(searchViewModel.GET_FILTER_LABEL);
@@ -96,7 +90,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         errorField.setAlignmentY(Component.CENTER_ALIGNMENT);
         errorField.setForeground(Color.RED);
 
-        // add Action Listener to check if the event is search.
         search.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -115,7 +108,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-        // add Action Listener to check if the event is getHistory.
+
         getHistory.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -138,7 +131,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        // add Action Listener to check if the event is getFilter.
         getFilter.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -149,7 +141,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        // add Action Listener to check if the event is clearHistory.
         clearHistory.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -185,7 +176,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        // add Key Listener to get what was entered in the input field.
         cityNameInputField.addKeyListener(
                 new KeyListener() {
                     @Override
