@@ -3,6 +3,9 @@ package use_case.search;
 import java.util.ArrayList;
 import entity.Place;
 
+/**
+ * The interface to search for places and available filters
+ */
 public interface SearchDataAccessInterface {
 
     /**
