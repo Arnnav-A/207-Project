@@ -25,7 +25,7 @@ import use_case.getFilter.GetFilterInteractor;
 import use_case.getFilter.GetFilterOutputBoundary;
 import use_case.clear_history.ClearHistoryDataAccessInterface;
 import use_case.clear_history.ClearHistoryInputBoundary;
-import use_case.clear_history.ClearHistoryHistoryInteractor;
+import use_case.clear_history.ClearHistoryInteractor;
 import use_case.clear_history.ClearHistoryOutputBoundary;
 import use_case.get_history.GetHistoryDataAccessInterface;
 import use_case.get_history.GetHistoryInputBoundary;
@@ -120,7 +120,7 @@ public class SearchUseCaseFactory {
 
         ClearHistoryOutputBoundary clearHistoryOutputBoundary = new ClearHistoryHistoryPresenter(searchViewModel, viewManagerModel, clearHistoryViewModel);
 
-        ClearHistoryInputBoundary clearInteractor = new ClearHistoryHistoryInteractor(clearDataAccessObject, clearHistoryOutputBoundary);
+        ClearHistoryInputBoundary clearInteractor = new ClearHistoryInteractor(clearDataAccessObject, clearHistoryOutputBoundary);
 
         return new ClearHistoryController(clearInteractor);
     }
