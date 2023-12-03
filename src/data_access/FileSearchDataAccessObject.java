@@ -23,14 +23,15 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
 
     /**
      * The class to handle interactions with both the local database and the API
-     * @param commonPlaceFactory the factory for creating place entities
+     * @param placeFactory the factory for creating place entities
      * @param filtersPathCSV the file path for the filter
      * @param listingPathJSON the temporary file path where local data is stored
      */
-    public FileSearchDataAccessObject(PlaceFactory commonPlaceFactory, String filtersPathCSV, String listingPathJSON) {
+    public FileSearchDataAccessObject(PlaceFactory placeFactory, String filtersPathCSV, String listingPathJSON) {
+
         this.filtersFileCSV = new File(filtersPathCSV);
         this.listingFileJSON = new File(listingPathJSON);
-        this.placeFactory = commonPlaceFactory;
+        this.placeFactory = placeFactory;
     }
 
     /**
@@ -78,8 +79,8 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
             for (Object place: listingJSON) {
                 try {
                     JSONObject placeProperties = ((JSONObject) place).getJSONObject("properties");
-                    String name = placeProperties.getString("name");
-                    String address = placeProperties.getString("formatted");
+                    String name = placeProperties.getString("address_line1");
+                    String address = placeProperties.getString("address_line2");
                     Double latitude = placeProperties.getDouble("lat");
                     Double longitude = placeProperties.getDouble("lon");
                     ArrayList<Double> coordinates = new ArrayList<>();
