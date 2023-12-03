@@ -5,13 +5,19 @@ import interface_adapter.getFilter.GetFilterState;
 import interface_adapter.getFilter.GetFilterViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 
 
 public class GetFilterView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -30,6 +36,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
 
     final JButton apply;
     final JButton reset;
+    private final JLabel picLabel = new JLabel();
 
     public GetFilterView(GetFilterViewModel getFilterViewModel,
                          SearchViewModel searchViewModel,
@@ -43,6 +50,14 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
         subFilter_1.setModel(modelSubFilter_1);
         subFilter_2.setModel(modelSubFilter_2);
         subFilter_3.setModel(modelSubFilter_3);
+
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/assets/title.png"));
+            ImageIcon image = new ImageIcon(myPicture.getScaledInstance(504,168, Image.SCALE_DEFAULT));
+            picLabel.setIcon(image);
+        } catch (IOException ignored) {}
+        picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        picLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
 
@@ -207,6 +222,7 @@ public class GetFilterView extends JPanel implements ActionListener, PropertyCha
                     }
                 });
 
+        this.add(picLabel);
         this.add(parentFilter);
         this.add(subFilter_1);
         this.add(subFilter_2);
