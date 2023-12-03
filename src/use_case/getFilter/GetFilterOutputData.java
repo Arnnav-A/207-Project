@@ -22,36 +22,8 @@ public class GetFilterOutputData {
         return parentFilters;
     }
 
-    public ArrayList<String> getSubFilters_1() {
-        return subFilters_1;
-    }
-
-    public ArrayList<String> getSubFilters_2() {
-        return subFilters_2;
-    }
-
-    public ArrayList<String> getSubFilters_3() {
-        return subFilters_3;
-    }
-
     public CommonFilter getAllFilters() {
         return allFilters;
-    }
-
-    public CommonFilter getSelectedFilter(String name) {
-        return allFilters.getSubFilter(name);
-    }
-
-    public void setSubFilters_1(CommonFilter filter) {
-        subFilters_1 = filter.getSubFilterNames();
-    }
-
-    public void setSubFilters_2(CommonFilter filter) {
-        subFilters_2 = filter.getSubFilterNames();
-    }
-
-    public void setSubFilters_3(CommonFilter filter) {
-        subFilters_3 = filter.getSubFilterNames();
     }
 }
 

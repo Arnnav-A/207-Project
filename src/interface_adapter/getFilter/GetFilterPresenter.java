@@ -1,16 +1,8 @@
 package interface_adapter.getFilter;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
-import interface_adapter.search.SearchState;
-import interface_adapter.search.SearchViewModel;
 import use_case.getFilter.GetFilterOutputBoundary;
 import use_case.getFilter.GetFilterOutputData;
-import view.GetFilterView;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 public class GetFilterPresenter implements GetFilterOutputBoundary {
 
@@ -32,12 +24,5 @@ public class GetFilterPresenter implements GetFilterOutputBoundary {
 
         this.viewManagerModel.setActiveView(getFilterViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareFailView(String error) {
-        GetFilterState state = getFilterViewModel.getState();
-        state.setNotice(error);
-        getFilterViewModel.firePropertyChanged();
     }
 }
