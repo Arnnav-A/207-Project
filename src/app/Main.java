@@ -1,7 +1,7 @@
 package app;
 
 import data_access.FilePlaceInfoDataAccessObject;
-import data_access.FileSavePlacesDataAccessInterface;
+import data_access.FileSavePlacesDataAccessObject;
 import data_access.FileSearchDataAccessObject;
 import data_access.FileHistoryDataAccessObject;
 import entity.*;
@@ -58,8 +58,8 @@ public class Main {
         FilePlaceInfoDataAccessObject placeInfoDataAccessObject;
         placeInfoDataAccessObject = new FilePlaceInfoDataAccessObject("listingJSON.json", new CommonPlaceFactory());
 
-        FileSavePlacesDataAccessInterface savePlacesDataAccessObject;
-        savePlacesDataAccessObject = new FileSavePlacesDataAccessInterface("listingJSON.json", "savedCSV.csv", new CommonPlaceFactory());
+        FileSavePlacesDataAccessObject savePlacesDataAccessObject;
+        savePlacesDataAccessObject = new FileSavePlacesDataAccessObject("listingJSON.json", "savedCSV.csv", new CommonPlaceFactory());
 
         FileHistoryDataAccessObject historyDataAccessObject;
         historyDataAccessObject = new FileHistoryDataAccessObject("history.csv");

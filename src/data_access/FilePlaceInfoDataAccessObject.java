@@ -13,16 +13,29 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Class to get all place attributes for a given place name in the current search
+ */
 public class FilePlaceInfoDataAccessObject implements PlaceInfoDataAccessInterface {
 
     private final File listingFileJSON;
     private final PlaceFactory placeFactory;
 
+    /**
+     * Constructor for a File Place Info Data Access Object
+     * @param listingFileJSON The JSON file where we stored the search results
+     * @param placeFactory The place factory to create place entities
+     */
     public FilePlaceInfoDataAccessObject(String listingFileJSON, PlaceFactory placeFactory) {
         this.listingFileJSON = new File(listingFileJSON);
         this.placeFactory = placeFactory;
     }
 
+    /**
+     * Method gives the place entity from the name of the place
+     * @param name The name of the place being searched for
+     * @return A place entity with the given name
+     */
     @Override
     public Place getPlaceFromName(String name) {
         Place errorPlace = placeFactory.create("Place Details Not Found", "", new ArrayList<>(), "", "");
