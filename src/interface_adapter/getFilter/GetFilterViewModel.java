@@ -32,41 +32,6 @@ public class GetFilterViewModel extends ViewModel {
         return state;
     }
 
-    public String[] getParentFilter() {
-        return parentFilter;
-    }
-
-    public String getSelectedParentFilter() {
-        return selectedParentFilter;
-    }
-
-    public String[] getSubFilters_1() {
-        return subFilters_1;
-    }
-
-    public String[] getSubFilters_2() {
-        return subFilters_2;
-    }
-
-    public String[] getSubFilters_3() {
-        return subFilters_3;
-    }
-
-    public String getSelectedSubFilter1() {
-        return selectedSubFilter1;
-    }
-
-    public String getSelectedSubFilter2() {
-        return selectedSubFilter2;
-    }
-
-    public String getSelectedSubFilter3() {
-        return selectedSubFilter3;
-    }
-    public CommonFilter getAllFilters() {
-        return allFilters;
-    }
-
     public void setState(GetFilterState state) {
         this.state = state;
     }
@@ -76,18 +41,6 @@ public class GetFilterViewModel extends ViewModel {
         this.selectedSubFilter1 = "";
         this.selectedSubFilter2 = "";
         this.selectedSubFilter3 = "";
-    }
-
-    public void setSubFilters_1() {
-        this.subFilters_1 = state.getSubFilter_1();
-    }
-
-    public void setSubFilters_2() {
-        this.subFilters_2 = state.getSubFilter_2();
-    }
-
-    public void setSubFilters_3() {
-        this.subFilters_3 = state.getSubFilter_3();
     }
 
     public void setSelectedParentFilter() {
@@ -110,10 +63,6 @@ public class GetFilterViewModel extends ViewModel {
         this.allFilters = filters;
     }
 
-    public void setSelectedFilter(String name) {
-        this.selectedParentFilter = name;
-    }
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void firePropertyChanged() {
@@ -123,24 +72,16 @@ public class GetFilterViewModel extends ViewModel {
 
     public void parentFilterSelectionChanged() {
         String selectedParentFilter = this.selectedParentFilter;
-            System.out.println("ViewModel has parentFilter chose: " + selectedParentFilter);
-            ArrayList<String> sublist = allFilters.getSubFilter(selectedParentFilter).getSubFilterNames();
-            sublist.add(0, "Please select a Filter");
-            this.subFilters_1 = sublist.toArray(new String[0]);
-            state.setSubFilter1(subFilters_1);
-            state.setSubFilter2(defaultSubFilter);
-            state.setSubFilter3(defaultSubFilter);
-            state.setSelectedSubFilter1(null);
-            state.setSelectedSubFilter2(null);
-            state.setSelectedSubFilter3(null);
-//        } else {
-//            state.setSubFilter1(defaultSubFilter);
-//            state.setSubFilter2(defaultSubFilter);
-//            state.setSubFilter3(defaultSubFilter);
-//            state.setSelectedSubFilter1(null);
-//            state.setSelectedSubFilter2(null);
-//            state.setSelectedSubFilter3(null);
-//        }
+        System.out.println("ViewModel has parentFilter chose: " + selectedParentFilter);
+        ArrayList<String> sublist = allFilters.getSubFilter(selectedParentFilter).getSubFilterNames();
+        sublist.add(0, "Please select a Filter");
+        this.subFilters_1 = sublist.toArray(new String[0]);
+        state.setSubFilter1(subFilters_1);
+        state.setSubFilter2(defaultSubFilter);
+        state.setSubFilter3(defaultSubFilter);
+        state.setSelectedSubFilter1(null);
+        state.setSelectedSubFilter2(null);
+        state.setSelectedSubFilter3(null);
     }
 
 
