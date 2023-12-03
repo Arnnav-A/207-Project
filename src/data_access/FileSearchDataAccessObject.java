@@ -16,13 +16,17 @@ import use_case.search.SearchDataAccessInterface;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The class to handle interactions with both the local database and the API. This is a JSON file based data
+ * access object and uses a csv of filters from the API
+ */
 public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     private final File filtersFileCSV;
     private final File listingFileJSON;
     private final PlaceFactory placeFactory;
 
     /**
-     * The class to handle interactions with both the local database and the API
+     * Constructor to create an instance of the File Search Data Access Object.
      * @param placeFactory the factory for creating place entities
      * @param filtersPathCSV the file path for the filter
      * @param listingPathJSON the temporary file path where local data is stored
@@ -197,7 +201,7 @@ public class FileSearchDataAccessObject implements SearchDataAccessInterface {
     }
 
     /**
-     * Gets the all filters present in the filters csv file
+     * Gets all the filters present in the filters csv file
      * @return An ArrayList of String where each string is a valid filter
      */
     @Override
