@@ -18,7 +18,7 @@ public interface Filter {
      * Method to set a sub filter
      * @param subFilter: a filter that you want to set as subfilter
      */
-    void setSubFilter(CommonFilter subFilter);
+    void setSubFilter(Filter subFilter);
 
 
     /**
@@ -26,7 +26,7 @@ public interface Filter {
      * @param name: the name of subfilter that you want to choose
      * @return the subfilter you chose
      */
-    CommonFilter getSubFilter(String name);
+    Filter getSubFilter(String name);
 
 
     /**

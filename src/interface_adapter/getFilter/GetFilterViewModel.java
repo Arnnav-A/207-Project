@@ -1,6 +1,7 @@
 package interface_adapter.getFilter;
 
 import entity.CommonFilter;
+import entity.Filter;
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
@@ -22,7 +23,7 @@ public class GetFilterViewModel extends ViewModel {
     private String selectedSubFilter2 = "";
     private String selectedSubFilter3 = "";
     private String selectedParentFilter = "";
-    private CommonFilter allFilters;
+    private Filter allFilters;
 
     public GetFilterViewModel() {
         super("getFilter");
@@ -59,7 +60,7 @@ public class GetFilterViewModel extends ViewModel {
         this.selectedSubFilter3 = selectedSubFilter3;
     }
 
-    public void setAllFilters(CommonFilter filters) {
+    public void setAllFilters(Filter filters) {
         this.allFilters = filters;
     }
 

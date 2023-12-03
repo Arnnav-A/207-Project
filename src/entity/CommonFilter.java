@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CommonFilter implements Filter {
 
     private final String name;
-    private final ArrayList<CommonFilter> subfilters;
+    private final ArrayList<Filter> subfilters;
 
     public CommonFilter(String name) {
         this.name = name;
@@ -18,9 +18,9 @@ public class CommonFilter implements Filter {
     }
 
     @Override
-    public CommonFilter getSubFilter(String name) {
-        CommonFilter selectedFilter = new CommonFilter("");
-        for (CommonFilter filter : subfilters) {
+    public Filter getSubFilter(String name) {
+        Filter selectedFilter = new CommonFilter("");
+        for (Filter filter : subfilters) {
             if (filter.getName().equals(name)) {
                 selectedFilter = filter;
             }
@@ -32,14 +32,14 @@ public class CommonFilter implements Filter {
     @Override
     public ArrayList<String> getSubFilterNames() {
         ArrayList<String> result = new ArrayList<>();
-        for (CommonFilter filter : subfilters) {
+        for (Filter filter : subfilters) {
             result.add(filter.getName());
         }
         return result;
     }
 
     @Override
-    public void setSubFilter(CommonFilter subFilter) {
+    public void setSubFilter(Filter subFilter) {
         subfilters.add(subFilter);
     }
 }
