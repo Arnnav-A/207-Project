@@ -63,6 +63,9 @@ public class GetFilterViewModel extends ViewModel {
     public String getSelectedSubFilter3() {
         return selectedSubFilter3;
     }
+    public CommonFilter getAllFilters() {
+        return allFilters;
+    }
 
     public void setState(GetFilterState state) {
         this.state = state;

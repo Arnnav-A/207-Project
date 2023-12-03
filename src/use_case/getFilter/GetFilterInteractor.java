@@ -31,6 +31,7 @@ public class GetFilterInteractor implements GetFilterInputBoundary {
             String[] segments = option.split("\\.");
             CommonFilter subFilter = parentFilter;
             for (String segment : segments) {
+                segment = segment.replace("_", " ");
                 if (!subFilter.getSubFilterNames().contains(segment)) {
                     subFilter.setSubFilter(new CommonFilter(segment));
                     subFilter = subFilter.getSubFilter(segment);
