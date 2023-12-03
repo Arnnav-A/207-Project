@@ -170,7 +170,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             getSavedController.execute();
                             GetSavedState state = getSavedViewModel.getState();
                             ArrayList<String> places = state.getPlaces();
-                            String message = "No history found.";
+                            String message = "No saved places found.";
                             if (places.isEmpty()) {
                                 JOptionPane.showMessageDialog(getPlaces.getTopLevelAncestor(), message);
                             } else {
