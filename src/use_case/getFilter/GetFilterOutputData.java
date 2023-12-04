@@ -1,19 +1,17 @@
 package use_case.getFilter;
 
 import entity.CommonFilter;
+import entity.Filter;
 
 import java.util.ArrayList;
 
 
 public class GetFilterOutputData {
 
-    private final CommonFilter allFilters;
+    private final Filter allFilters;
     private final ArrayList<String> parentFilters;
-    private ArrayList<String> subFilters_1 = new ArrayList<>();
-    private ArrayList<String> subFilters_2 = new ArrayList<>();
-    private ArrayList<String> subFilters_3 = new ArrayList<>();
 
-    public GetFilterOutputData(CommonFilter superFilter) {
+    public GetFilterOutputData(Filter superFilter) {
         this.allFilters = superFilter;
         this.parentFilters = superFilter.getSubFilterNames();
     }
@@ -22,7 +20,7 @@ public class GetFilterOutputData {
         return parentFilters;
     }
 
-    public CommonFilter getAllFilters() {
+    public Filter getAllFilters() {
         return allFilters;
     }
 }

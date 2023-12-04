@@ -1,5 +1,6 @@
 package use_case.getFilter;
 
+import entity.Filter;
 import use_case.search.SearchDataAccessInterface;
 import entity.CommonFilter;
 import java.util.*;
@@ -25,11 +26,11 @@ public class GetFilterInteractor implements GetFilterInputBoundary {
     }
 
 
-    private static CommonFilter createFilter(ArrayList<String> originalList) {
-        CommonFilter parentFilter = new CommonFilter("All Filters");
+    private static Filter createFilter(ArrayList<String> originalList) {
+        Filter parentFilter = new CommonFilter("All Filters");
         for (String option : originalList) {
             String[] segments = option.split("\\.");
-            CommonFilter subFilter = parentFilter;
+            Filter subFilter = parentFilter;
             for (String segment : segments) {
                 segment = segment.replace("_", " ");
                 if (!subFilter.getSubFilterNames().contains(segment)) {
