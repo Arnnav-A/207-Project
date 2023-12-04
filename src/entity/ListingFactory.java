@@ -1,7 +1,7 @@
 package entity;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface to create a listing entity
@@ -15,5 +15,5 @@ public interface ListingFactory {
      * @param filter The filter used in search
      * @return The created listing entity
      */
-    Listing create(ArrayList<Place> points, String city, String filter);
+    Listing create(List<Place> points, String city, String filter);
 }

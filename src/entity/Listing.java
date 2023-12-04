@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface for representing a search result
@@ -11,7 +11,7 @@ public interface Listing {
      * Method to get all place entities returned
      * @return Array list of places returned
      */
-    ArrayList<Place> getPoints();
+    List<Place> getPoints();
 
     /**
      * Method to get the city searched
