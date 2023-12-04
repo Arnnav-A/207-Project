@@ -1,21 +1,21 @@
 package entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CommonListing implements Listing {
 
-    private final ArrayList<Place> points;
+    private final List<Place> points;
     private final String city;
     private final String filter;
 
-    CommonListing(ArrayList<Place> points, String city, String filter) {
+    CommonListing(List<Place> points, String city, String filter) {
         this.points = points;
         this.city = city;
         this.filter = filter;
     }
 
     @Override
-    public ArrayList<Place> getPoints() {
+    public List<Place> getPoints() {
         return points;
     }
 

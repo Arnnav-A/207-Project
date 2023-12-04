@@ -1,11 +1,11 @@
 package entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CommonListingFactory implements ListingFactory{
 
     @Override
-    public Listing create(ArrayList<Place> points, String city, String filter) {
+    public Listing create(List<Place> points, String city, String filter) {
         return new CommonListing(points, city, filter);
     }
 }
